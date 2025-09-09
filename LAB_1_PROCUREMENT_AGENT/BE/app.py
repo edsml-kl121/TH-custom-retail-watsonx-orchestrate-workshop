@@ -73,6 +73,13 @@ class OrderRequest(BaseModel):
 
 class OrderResponse(BaseModel):
     message: str
+    product_name: str
+    supplier: str
+    price: float
+    quantity: int
+    purchase_date: str
+    staff_in_charge: str
+    approver: str
     latest_price_change: Optional[str] = "-"
 
 class OrderHistoryItem(BaseModel):
@@ -98,8 +105,10 @@ class ErrorResponse(BaseModel):
     description="""Submit details to add a new purchase order, including product, supplier, quantity, and staff information. 
         Calculates price change compared to previous order for the same product. 
         User need to provide all fields in OrderRequest model including product_name, supplier, price, quantity, purchase_date (YYYY-MM-DD), staff_in_charge, and approver.
+        Do not assume any field is something else or empty only extract the field from user.
         Always ask user for every fields when creating adding a new order.
         """,
+    response_description="Returns the created order with a status message or an error message.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- latest_price_change: Price difference from previous order (string, '-' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
     operation_id="addOrder"
 )
 def add_order(order: OrderRequest):
@@ -137,13 +146,24 @@ def add_order(order: OrderRequest):
     except Exception as e:
         print(f"[ERROR] Failed to add order: {e}")
         return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
-    return OrderResponse(message="Order added successfully", latest_price_change=latest_price_change)
+    return OrderResponse(
+        message="Order added successfully",
+        product_name=order.product_name,
+        supplier=order.supplier,
+        price=order.price,
+        quantity=order.quantity,
+        purchase_date=order.purchase_date,
+        staff_in_charge=order.staff_in_charge,
+        approver=order.approver,
+        latest_price_change=latest_price_change
+    )
 
 @app.get(
     "/orders",
     response_model=OrderHistoryResponse,
     summary="View purchase order history",
     description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, latest_price_change information.",
+    response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- latest_price_change: Price difference from previous order (string, '-' if not applicable)",
     operation_id="getOrderHistory"
 )
 def get_order_history():

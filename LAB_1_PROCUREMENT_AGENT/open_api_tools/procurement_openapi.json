@@ -13,7 +13,7 @@
         "operationId": "getOrderHistory",
         "responses": {
           "200": {
-            "description": "Successful Response",
+            "description": "Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- latest_price_change: Price difference from previous order (string, '-' if not applicable)",
             "content": {
               "application/json": {
                 "schema": {
@@ -26,7 +26,7 @@
       },
       "post": {
         "summary": "Create a new purchase order",
-        "description": "Submit details to add a new purchase order, including product, supplier, quantity, and staff information. \n        Calculates price change compared to previous order for the same product. \n        User need to provide all fields in OrderRequest model including product_name, supplier, price, quantity, purchase_date (YYYY-MM-DD), staff_in_charge, and approver.\n        Always ask user for every fields when creating adding a new order.",
+        "description": "Submit details to add a new purchase order, including product, supplier, quantity, and staff information. \n        Calculates price change compared to previous order for the same product. \n        User need to provide all fields in OrderRequest model including product_name, supplier, price, quantity, purchase_date (YYYY-MM-DD), staff_in_charge, and approver.\n        Do not assume any field is something else or empty only extract the field from user.\n        Always ask user for every fields when creating adding a new order.",
         "operationId": "addOrder",
         "requestBody": {
           "content": {
@@ -40,7 +40,7 @@
         },
         "responses": {
           "200": {
-            "description": "Successful Response",
+            "description": "Returns the created order with a status message or an error message.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- latest_price_change: Price difference from previous order (string, '-' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
             "content": {
               "application/json": {
                 "schema": {
@@ -198,6 +198,34 @@
             "type": "string",
             "title": "Message"
           },
+          "product_name": {
+            "type": "string",
+            "title": "Product Name"
+          },
+          "supplier": {
+            "type": "string",
+            "title": "Supplier"
+          },
+          "price": {
+            "type": "number",
+            "title": "Price"
+          },
+          "quantity": {
+            "type": "integer",
+            "title": "Quantity"
+          },
+          "purchase_date": {
+            "type": "string",
+            "title": "Purchase Date"
+          },
+          "staff_in_charge": {
+            "type": "string",
+            "title": "Staff In Charge"
+          },
+          "approver": {
+            "type": "string",
+            "title": "Approver"
+          },
           "latest_price_change": {
             "anyOf": [
               {
@@ -213,7 +241,14 @@
         },
         "type": "object",
         "required": [
-          "message"
+          "message",
+          "product_name",
+          "supplier",
+          "price",
+          "quantity",
+          "purchase_date",
+          "staff_in_charge",
+          "approver"
         ],
         "title": "OrderResponse"
       },
