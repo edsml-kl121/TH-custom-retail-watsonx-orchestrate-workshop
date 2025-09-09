@@ -2,12 +2,6 @@
 
 This lab shows how to create an agent and a simple flow that accepts a job position from the user and generates job criteria for resume screening.
 
-Goal
-- Create an agent named `resume_screening_agent`.
-- Set the agent style to `ReAct`.
-- Add a tool that points to a new flow called `resume_screening_tool`.
-- Build a flow that asks the user for a job position and returns JSON-formatted job criteria.
-
 Prerequisites
 - Access to the Studio UI where agents and flows are created.
 
