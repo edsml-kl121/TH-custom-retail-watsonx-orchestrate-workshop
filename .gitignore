@@ -19,3 +19,4 @@ run-all-admin.sh
 **/ggsheet_token.json
 **/gmail_token.json
 **.DS_Store
+**/central-be-procurement-api-f108850ba368.json
