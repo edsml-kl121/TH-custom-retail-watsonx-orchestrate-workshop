@@ -30,7 +30,6 @@ Steps
 ![Set tool name and description](images/image5.png)
 
 #### Create the workflow
-
 1) Add a User Activity node
 - Hover over the connection line between Start and End until a plus (+) appears.
 - Click the plus icon and select `User activity` from the menu.
@@ -48,36 +47,33 @@ Steps
 - Rename it to `Generative Job Position`.
 - Click Edit to accept input from the previous step.
 
-![Add generative prompt](images/image10.png)
+![Drag generative prompt to user activity](images/image10.png)
+
+named it as **Generatative prompt expected_criteria**
+
+![Change Generative prompt named as Generative prompt expected_criteria](images/Generative_prompt_expected_criteria.png)
 
 Configuration for the Generative Prompt
 
 - Input variable:
   - Name: `job_position`
-  - Description: `Job position which user is interested`
+  - Description: `Job position which user interested`
   - Click `Add` to save the input variable.
 
-![Configure input variable](images/image13.png)
+![Click Edit Generative prompt setting](images/image11.png)
+
+![add input variable type string](images/image12.png)
+
+![Edit name and description of input variable](images/image13.png)
 
 - System prompt (use the exact rules below):
 
 ```
-Rules: 
-1. Answer in JSON format only.
-2. You will get a job position from the user query and you must return only information related to that job position.
-3. Do NOT ask any questions to the user. The user will provide only a job position; return JSON only.
-
-Example 1 (Software Engineer):
-Input = Software Engineer
-We are seeking a Software Engineer to join our banking technology team. The candidate will be responsible for developing and maintaining backend applications that support our digital payment systems. The role requires strong programming skillwds in Java and Python, knowledge of Spring Boot, SQL databases, and REST APIs. Familiarity with cloud platforms (AWS/Azure), Docker, and Kubernetes is a plus. Strong problem-solving abilities and teamwork are essential.
-
-Example 2 (Reception Team Member):
-Input = Reception Team Member
-We are looking for a Reception Team Member to be the first point of contact for our guests. The role includes greeting visitors, handling phone calls, scheduling appointments, and assisting with basic administrative tasks. The ideal candidate should have strong communication and customer service skills, be well-organized, and be able to multitask in a fast-paced environment. Experience in hospitality or office administration is preferred.
-
-Example 3 (Sales Executive):
-Input = Sales Executive
-We are seeking a motivated Sales Executive to drive business growth by identifying opportunities, building strong client relationships, and achieving sales targets. The role involves presenting products, negotiating deals, and managing the full sales cycle from prospecting to closing. Candidates should have 1–3 years of sales experience, excellent communication and negotiation skills, and familiarity with CRM tools. We offer competitive salary with commission, career development opportunities, and a supportive team environment.
+Rules:
+1. Answer in JSON format only. 
+2. You will get job position from user query and you will return only related information for that job position. 
+3. Do NOT ask any question from user. They will give you a job position and you will return JSON only.
+4. Ensure all fields are filled with appropriate data and avoid leaving any blank (e.g., 'not specified').
 ```
 
 - User prompt (what the flow will send to the model):
@@ -87,73 +83,64 @@ job position:
 
 You should see similar to this when the prompt is configured:
 
-![Configured prompt example](images/image14.png)
+![prompt when configured](images/image14.png)
 
+![Click Select Variable](images/image15.png)
 
-![Configured prompt example](images/image15.png)
+![Select job_position](images/image16.png)
 
-![Configured prompt example](images/image16.png)
-
-![Configured prompt example](images/image17.png)
+![Output when add job_position variable](images/image17.png)
 
 - Now will custom output of this generative prompt
 
-![Configured prompt example](images/image18.png)
+![Click open Output as Object](images/image18.png)
 
-![Configured prompt example](images/image19.png)
+![Click add object definition](images/image19.png)
 
-Change object output name to ```required_skill_job_description ```
+Change object output name to ```expected_criteria ``` with ```expected_criteria align with job``` as descripiton
 
 with this JSON schema
 ```
 {
-    "type": "object",
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "required": [
-        "exp",
-        "yrs_of_exp",
-        "position",
-        "skills",
-        "soft_skills",
-        "industry_exp"
-    ],
-    "properties": {
-        "exp": {
-            "type": "string"
-        },
-        "skills": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            },
-            "minItems": 1
-        },
-        "position": {
-            "type": "string"
-        },
-        "yrs_of_exp": {
-            "type": "number",
-            "minimum": 0
-        },
-        "soft_skills": {
-            "type": "array",
-            "items": {
-                "type": "string"
-            },
-            "minItems": 1
-        },
-        "industry_exp": {
-            "type": "string"
-        }
-    },
-    "additionalProperties": false
+  "skills": {
+    "type": "string"
+  },
+  "experience": {
+    "type": "string"
+  }
 }
 ```
 
-![Configured prompt example](images/image20.png)
+![Click Save button](images/image20.png)
 
 - Change the model to ``` llama-4-maverick-17b-128e-instruct-fp8 ```, Test Generative output :
 
-![Configured prompt example](images/image21.png)
+![Change the model](images/image21.png)
 
-![Configured prompt example](images/image22.png)
+![Click edit test value](images/image22.png)
+
+![Configured prompt example](images/image23.png)
+
+![Configured prompt example](images/image24.png)
+
+![Configured prompt example](images/image25.png)
+
+Output would be simliar like this
+
+![Configured prompt example](images/image26.png)
+
+4) Now add new flow to upload candidate's resume 
+
+![upload 1st candiate's resume](images/image26.png)
+
+![upload 1st candiate's resume](images/image27.png)
+
+change name to  **Resume uploader1**
+
+![upload 1st candiate's resume](images/image28.png)
+
+5) Add a Document Extractor  inside the User Activity
+- Drag a `Document Extractor` into the User Activity node.
+- Rename it to `Resume extractor1`.
+
+![upload 1st candiate's resume](images/image29.png)
