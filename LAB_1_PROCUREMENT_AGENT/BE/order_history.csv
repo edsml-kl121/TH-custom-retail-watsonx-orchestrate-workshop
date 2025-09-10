@@ -1,5 +1,0 @@
-product_name,supplier,price,quantity,purchase_date,staff_in_charge,approver,latest_price_change
-Chair,SupplierB,150,10,2025-09-02,Alice Lee,Bob Brown,-
-Desk,SupplierC,300,3,2025-09-03,Tom White,Susan Green,-
-Chair,SupplierB,160,5,2025-09-06,Alice Lee,Bob Brown,10
-
