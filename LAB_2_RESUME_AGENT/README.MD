@@ -7,23 +7,23 @@ Prerequisites
 
 ## Steps
 
-1. **Create the agent**
-    1.1 Choose `create from scratch`
-    1.2 Create a new agent named `resume_screening_agent` 
-    1.3 Set the description to :
+1. **Create the agent**<br/>
+    1.1 Choose `create from scratch`<br>
+    1.2 Create a new agent named `resume_screening_agent` <br>
+    1.3 Set the description to :<br>
     `This agent using when need to compare candidate's resume align with job position the output will be scoring of each candidate resume` 
 ---
 
-2. Add a Tool that Using a New Flow
-    2.1 In the agent settings, open the Toolset section and click **Add tool**.
-    2.2 Choose **Create a new flow**.
+2. Add a Tool that Using a New Flow <br>
+    2.1 In the agent settings, open the Toolset section and click **Add tool**.<br>
+    2.2 Choose **Create a new flow**.<br>
     ![Click add tool](images/image2.png)
     ![Click create a new flow](images/image3.png)
 
     2.3 Click the flow title (usually `Untitled`) in the top-left to open the flow settings.
     ![Open flow settings](images/image4.png)
 
-    2.4 Change the tool name to `resume_screening_tool` and set the description to `This tool using when user need to compare candidate's resume`.
+    2.4 Change the tool name to `resume_screening_tool` and set the description to `This tool using when user need to compare candidate's resume`.<br>
     2.5 Click Save.
 
     ![Set tool name and description](images/image5.png)
@@ -61,7 +61,7 @@ Prerequisites
 
 ---
 
-4) Configuration for the Generative Prompt
+4) Configuration for the Generative Prompt<br>
   4.1 Input variable:
     - Name: `job_position`
     - Description: `Job position which user interested`
@@ -151,10 +151,10 @@ Output would be simliar like this.
 
 ---
 
-7) Add a 1st Document Extractor  inside the User Activity
-  7.1 Drag a `Document Extractor` into the User Activity node.
-  7.2 Rename it to `Resume extractor1`.
-  7.3 Click Edit Fields
+7) Add a 1st Document Extractor  inside the User Activity<br>
+  7.1 Drag a `Document Extractor` into the User Activity node.<br>
+  7.2 Rename it to `Resume extractor1`.<br>
+  7.3 Click Edit Fields<br>
 
 ![Drag 1st Document extractor to userflow](images/image29.png)
 
@@ -163,13 +163,14 @@ Output would be simliar like this.
 ![click edit fields](images/image31.png)
 
 ---
-8) Download and Upload Sample Resumes
+8) Download and Upload Sample Resumes<br>
   8.1 Download resumes from:
     -  `sample/jr-sale-resume.pdf` 
-    -  `sample/sr-sale-resume.pdf`
-  8.2 Upload `jr-sales-resume.pdf`
+    -  `sample/sr-sale-resume.pdf`<br>
 
-  8.3 Click **Add Field**, name it as `name1` and configure the Field
+8.2 Upload `jr-sales-resume.pdf`
+
+8.3 Click **Add Field**, name it as `name1` and configure the Field
 
 ![Click add field](images/image32.png)
 
