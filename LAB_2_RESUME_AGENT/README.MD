@@ -7,30 +7,26 @@ Prerequisites
 
 ## Steps
 
-1) Create the agent
-  1.1 Choose `create from scratch`
-  1.2 Create a new agent named `resume_screening_agent` 
-  1.3 Set the description to :
-  `This agent using when need to compare candidate's resume align with job position the output will be scoring of each candidate resume` 
-
+1. **Create the agent**
+    1.1 Choose `create from scratch`
+    1.2 Create a new agent named `resume_screening_agent` 
+    1.3 Set the description to :
+    `This agent using when need to compare candidate's resume align with job position the output will be scoring of each candidate resume` 
 ---
 
-2) Add a Tool that Using a New Flow
-  2.1 In the agent settings, open the Toolset section and click **Add tool**.
-  2.2 Choose **Create a new flow**.
+2. Add a Tool that Using a New Flow
+    2.1 In the agent settings, open the Toolset section and click **Add tool**.
+    2.2 Choose **Create a new flow**.
+    ![Click add tool](images/image2.png)
+    ![Click create a new flow](images/image3.png)
 
-![Click add tool](images/image2.png)
-![Click create a new flow](images/image3.png)
+    2.3 Click the flow title (usually `Untitled`) in the top-left to open the flow settings.
+    ![Open flow settings](images/image4.png)
 
-  2.3 Click the flow title (usually `Untitled`) in the top-left to open the flow settings.
+    2.4 Change the tool name to `resume_screening_tool` and set the description to `This tool using when user need to compare candidate's resume`.
+    2.5 Click Save.
 
-![Open flow settings](images/image4.png)
-
-  2.4 Change the tool name to `resume_screening_tool` and set the description to `This tool using when user need to compare candidate's resume`.
-  2.5 Click Save.
-
-![Set tool name and description](images/image5.png)
-
+    ![Set tool name and description](images/image5.png)
 ---
 
 #### Create the workflow
