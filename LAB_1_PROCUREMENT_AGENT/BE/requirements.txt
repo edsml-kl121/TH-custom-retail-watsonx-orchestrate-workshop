@@ -1,0 +1,7 @@
+requests
+fastapi
+uvicorn[standard]
+python-dotenv
+pydantic>=2.0
+gspread
+google-auth
