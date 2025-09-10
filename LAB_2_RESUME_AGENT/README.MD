@@ -119,9 +119,9 @@ with this JSON schema
 
 ![Click edit test value](images/image22.png)
 
-![Configured prompt example](images/image23.png)
+![Set values as Sales](images/image23.png)
 
-![Configured prompt example](images/image24.png)
+![Click Generate response](images/image24.png)
 
 ![Configured prompt example](images/image25.png)
 
