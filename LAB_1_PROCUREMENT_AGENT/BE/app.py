@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.openapi.utils import get_openapi
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List, Optional
 import os
 from fastapi.responses import JSONResponse
@@ -72,15 +72,15 @@ class OrderRequest(BaseModel):
     approver: str
 
 class OrderResponse(BaseModel):
-    message: str
-    product_name: str
-    supplier: str
-    price: float
-    quantity: int
-    purchase_date: str
-    staff_in_charge: str
-    approver: str
-    latest_price_change: Optional[str] = "-"
+    message: str = Field(..., description="Status message for the order. Only extract and present from the user's query if relevant. Make sure it is not assumed N/A or None.")
+    product_name: str = Field(..., description="Name of the product. Only extract and present from the user's query if relevant. Make sure it is not assumed N/A or None.")
+    supplier: str = Field(..., description="Supplier name. Only extract and present from the user's query if relevant. Make sure it is not assumed N/A or None.")
+    price: float = Field(..., description="Price of the product. Only extract and present from the user's query if relevant. Make sure it is not assumed N/A or None.")
+    quantity: int = Field(..., description="Quantity ordered. Only extract and present from the user's query if relevant. Make sure it is not assumed N/A or None.")
+    purchase_date: str = Field(..., description="Date of purchase (YYYY-MM-DD). Only extract and present from the user's query if relevant. Make sure it is not assumed N/A or None.")
+    staff_in_charge: str = Field(..., description="Staff responsible for the order. Only extract and present from the user's query if relevant. Make sure it is not assumed N/A or None.")
+    approver: str = Field(..., description="Name of the approver. Only extract and present from the user's query if relevant. Make sure it is not assumed N/A or None.")
+    latest_price_change: Optional[str] = Field("-", description="Price difference from previous order (string, '-' if not applicable).")
 
 class OrderHistoryItem(BaseModel):
     product_name: str
@@ -103,12 +103,9 @@ class ErrorResponse(BaseModel):
     response_model=OrderResponse,
     summary="Create a new purchase order",
     description="""Submit details to add a new purchase order, including product, supplier, quantity, and staff information. 
-        Calculates price change compared to previous order for the same product. 
-        User need to provide all fields in OrderRequest model including product_name, supplier, price, quantity, purchase_date (YYYY-MM-DD), staff_in_charge, and approver.
-        Do not assume any field is something else or empty only extract the field from user.
-        Always ask user for every fields when creating adding a new order.
+        Calculates price change compared to previous order for the same product.
         """,
-    response_description="Returns the created order with a status message or an error message.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- latest_price_change: Price difference from previous order (string, '-' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+    response_description="Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- latest_price_change: Price difference from previous order (string, '-' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
     operation_id="addOrder"
 )
 def add_order(order: OrderRequest):
