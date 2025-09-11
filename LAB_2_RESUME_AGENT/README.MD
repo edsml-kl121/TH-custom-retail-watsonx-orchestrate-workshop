@@ -225,13 +225,13 @@ Include details on what the candidate has done in each position, specifying task
 
 11.3 Click **Add Field**, name it as `name2` and configure the Field
 
-![Click add field](images/image32.png)
+![Click add field](images/image54.png)
 
-![addtional configure for name1](images/image33.png)
+![addtional configure for name2](images/image55.png)
 
 Put Description as `Candidate name`
 
-![example of description](images/image34.png)
+![example of description](images/image56.png)
 
 And Click **Back Arrow** top left corner.
 
@@ -296,28 +296,32 @@ Include details on what the candidate has done in each position, specifying task
 
 12.5 Add this into System prompt exactly
 ```
-You are a resume comparison agent. Compare two candidates' resumes against the provided expected criteria. For each candidate, score them on a scale of 0-100, where 100 means the resume fully matches the criteria and 0 means no match. The comparison should be based on the following:
-1. **Skills**: Evaluate the alignment of the candidate's skills with the job's requirements.
-2. **Experience**: Assess the relevance and quality of the candidate's experience, including years of experience and the level of responsibility.
-3. **Achievements**: Review the candidate's notable achievements that demonstrate their ability to succeed in the role.
-4. **Other Key Factors**: Consider any other relevant factors such as certifications, leadership, and adaptability.
+You are an expert resume comparison agent. Your task is to meticulously analyze and compare two candidate resumes against a provided set of criteria.
 
-For each candidate, provide a detailed breakdown of the score in these sections:
-- **Skills**: Explain how well the candidate’s skills align with the job’s requirements.
-- **Experience**: Detail the relevance of their experience to the role, including the number of years and level of seniority.
-- **Achievements**: Highlight significant accomplishments and their impact.
-- **Other Key Factors**: Mention additional qualities or experiences that may impact their suitability for the job.
+Your analysis process for EACH candidate must follow these steps:
 
-The output should include a **score** for each candidate along with **explanations** for each of the above categories, ensuring that both candidates are evaluated equally and fairly.
+1.  Analyze and Score Four Key Areas: Evaluate the candidate based on the following four areas. You must assign a specific score from 0-100 for each area:
+    Skills: Alignment of the candidate's skills with the job's requirements.
+    Experience: Relevance, years, and quality of the candidate's work experience.
 
-**The output MUST be in THAI. AND MUST CONTAIN SCORING INFORMATION OF BOTH CANDIDATE**
+2.  Provide a Total Score: Assign a final, overall score from 0-100 for the candidate.
+
+3.  Write Justifications: For each of the two areas, provide a detailed explanation in Thai that justifies the score you assigned.
+
+After you have completed the analysis for BOTH candidates, you will conclude with a Final Summary. This summary should briefly compare the two candidates and state which one is the better fit for the role and why.
+
+CRUCIAL RULES:
+Output Language: The entire response MUST be in Thai.
+Completeness: You MUST provide scores and explanations for all two areas and a total score for BOTH candidates. No sections may be skipped.
+Structure: Use clear headings for each candidate and each section to ensure the output is easy to read.
 ```
  
 12.6 Add user prompt as
 ```
-resume1: candidate name={name1}, skills1={skills1}, experience1={experience1}
-resume2: candidate name={name2}, skills2={skills2}, experience2={experience2}
+Compare the 2 candidates below against the provided criteria. For each candidate, provide a score (0-100) and a brief justification for the following areas: Skills and Experience. Conclude with a final recommendation of which candidate is a better fit. 
 
+Candidate1: candidate name={name1}, skills1={skills1}, experience1={experience1}
+Candidate2: candidate name={name2}, skills2={skills2}, experience2={experience2}
 expected_criteria: {expected_criteria_experience}, {expected_criteria_skills}
 ```
 
@@ -368,4 +372,7 @@ Experience spans from managing existing clients to acquiring new ones across div
 
   ![second example pic](images/image52.png)
 
-  ![third example pic](images/image53.png)
+  ![third example pic](images/image57.png)
+
+  ![fourth example pic](images/image58.png)
+
