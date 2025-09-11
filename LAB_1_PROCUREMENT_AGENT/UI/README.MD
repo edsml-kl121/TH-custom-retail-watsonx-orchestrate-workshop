@@ -41,19 +41,7 @@ Go to Watsonx Orchestrate Agent Builder and create a new agent named **"Procurem
 
 ![Agent Builder](images/image.png)
 
-**Add Tools**
-Add tools using the OpenAPI spec file: `procurement_openapi.json`, `openapi_text2sql.json`, `automation_openapi.json`
-
-
-**Select only these tools from each OpenAPI spec:**
-
-- `procurement_openapi.json`: View purchase order history, Create a new purchase order
-- `openapi_text2sql.json`: convert_text_to_sql
-- `automation_openapi.json`: send_email
-
-
 ### Agent Behavior Instructions
-
 
 ```markdown
 How To Use Tools
@@ -69,29 +57,43 @@ When asking and answering questions please make sure you do
 it in friendly and professional manner.
 ```
 
+**Add Tools**
+Add tools using the OpenAPI spec file: `procurement_openapi.json`, `openapi_text2sql.json`, `automation_openapi.json`
+
+![Openapi](images/image-2.png)
+![Openapi](images/image-3.png)
+![Openapi](images/image-4.png)
+
+**Select only these tools from each OpenAPI spec:**
+
+- `procurement_openapi.json`: View purchase order history, Create a new purchase order
+- `openapi_text2sql.json`: convert_text_to_sql
+- `automation_openapi.json`: send_email
+
+
 
 ## 3. Example Test Queries (Thai)
 
 1. ดึงข้อมูลออเดอร์ล่าสุดของแต่ละสินค้าในประวัติการสั่งซื้อ
 
-	![Order History](images/image.png)
+	![Order History](images/ui_order_history.png)
 
 2. ขอดูข้อมูลของสินค้า 3 ชนิดนี้ในตลาด
 
-	![Market Info 1](images/image-1.png)
-	![Market Info 2](images/image-2.png)
-	![Market Info 3](images/image-3.png)
-	![Market Info 4](images/image-4.png)
+	![Market Info 1](images/ui_market_info_1.png)
+	![Market Info 2](iamges/ui_market_info_2.pmg)
+	![Market Info 3](iamges/ui_market_info_3.pmg)
+	![Market Info 4](iamges/ui_market_info_4.pmg)
 
 3. เปรียบเทียบราคาสินค้าในประวัติการสั่งซื้อกับราคาสินค้าในตลาด เพื่อดูว่าอันไหนราคาต่ำกว่า
-	![Compare Prices](images/image-5.png)
+	![Compare Prices](images/ui_compare_prices.png)
 
 4. ผมพึ่งสั่งซื้อโต๊ะกาแฟไม้สน rustic ราคา 399.99 บาท ช่วยเพิ่มในประวัติให้หน่อย
 
-	![Add Order 1](images/image-7.png)
-	![Add Order 2](images/image-8.png)
-	![Add Order 3](images/image-9.png)
-	![Add Order 4](images/image-10.png)
+	![Add Order 1](images/ui_add_order_1.png)
+	![Add Order 2](images/ui_add_order_2.png)
+	![Add Order 3](images/ui_add_order_3.png)
+	![Add Order 4](images/ui_add_order_4.png)
 
 5. ส่งอีเมลสรุปรายการสินค้าที่สั่งนี้ไปหา {Your email} ด้วยหัวข้อ "New order"
 
