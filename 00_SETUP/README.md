@@ -1,3 +1,7 @@
+### Installing VS code (Only for the coding lab)
+Here is the link to download VS code
+https://code.visualstudio.com/download
+
 ### Installing Python 3.11
 
 Before proceeding, ensure you have Python 3.11 installed on your system.
@@ -85,5 +89,6 @@ orchestrate env activate trial-env
 
 Alternatively,
 ```orchestrate env activate trial-env --api-key <your_APIKEY>```
+
 
 https://developer.watson-orchestrate.ibm.com/environment/production_import
