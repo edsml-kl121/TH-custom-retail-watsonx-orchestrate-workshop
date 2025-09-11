@@ -73,7 +73,7 @@ pip install -r requirement.txt
 #### Windows (Powershell)
 ```
 py -3.11 -m venv venv
-.venv\Scripts\activate
+venv\Scripts\activate
 pip install -r requirement.txt
 ```
 
