@@ -1,0 +1,16 @@
+# Core API framework
+fastapi
+uvicorn[standard]
+
+# IBM Watsonx SDK
+ibm-watsonx-ai
+
+# Environment variables
+python-dotenv
+
+# Database / Data Handling
+pandas           # if you plan to inspect results in dev (not strictly required)
+tabulate         # nice for debugging table output (optional)
+
+# Validation
+pydantic>=2.0

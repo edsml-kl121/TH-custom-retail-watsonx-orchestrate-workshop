@@ -80,7 +80,9 @@ class OrderResponse(BaseModel):
     purchase_date: str = Field(..., description="Date of purchase (YYYY-MM-DD). Only extract and present from the user's query if relevant. Make sure it is not assumed N/A or None.")
     staff_in_charge: str = Field(..., description="Staff responsible for the order. Only extract and present from the user's query if relevant. Make sure it is not assumed N/A or None.")
     approver: str = Field(..., description="Name of the approver. Only extract and present from the user's query if relevant. Make sure it is not assumed N/A or None.")
-    latest_price_change: Optional[str] = Field("-", description="Price difference from previous order (string, '-' if not applicable).")
+    price_category: Optional[str] = Field("No Saving", description="Price change category: 'Avoidance' (price increased), 'No Saving' (price unchanged), 'Reduction' (price decreased).")
+    latest_price_change: Optional[str] = Field("0", description="Price difference from previous order (string, '0' if not applicable).")
+    
 
 class OrderHistoryItem(BaseModel):
     product_name: str
@@ -90,7 +92,9 @@ class OrderHistoryItem(BaseModel):
     purchase_date: str
     staff_in_charge: str
     approver: str
-    latest_price_change: Optional[str] = "-"
+    price_category: Optional[str] = "No Saving"
+    latest_price_change: Optional[str] = "0"
+    
 
 class OrderHistoryResponse(BaseModel):
     orders: List[OrderHistoryItem]
@@ -105,7 +109,7 @@ class ErrorResponse(BaseModel):
     description="""Submit details to add a new purchase order, including product, supplier, quantity, and staff information. 
         Calculates price change compared to previous order for the same product.
         """,
-    response_description="Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- latest_price_change: Price difference from previous order (string, '-' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+    response_description="Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
     operation_id="addOrder"
 )
 def add_order(order: OrderRequest):
@@ -114,7 +118,8 @@ def add_order(order: OrderRequest):
     Calculates price change compared to previous order for the same product.
     User need to provide all fields in OrderRequest model including product_name, supplier, price, quantity, purchase_date (YYYY-MM-DD), staff_in_charge, and approver."
     """
-    latest_price_change = "-"
+    latest_price_change = "0"
+    price_category = "No Saving"  # Default value
     try:
         sheet = get_gsheet()
         records = sheet.get_all_records()
@@ -127,9 +132,17 @@ def add_order(order: OrderRequest):
                     previous_price = None
         if previous_price is not None:
             price_change = order.price - previous_price
-            if price_change != 0:
-                latest_price_change = str(price_change)
-        # Append new order
+            latest_price_change = str(price_change)
+            # Set price_category based on price comparison
+            if order.price > previous_price:
+                price_category = "Avoidance"
+            elif order.price < previous_price:
+                price_category = "Reduction"
+            else:
+                price_category = "No Saving"
+        else:
+            price_category = "No Saving"
+        # Append new order with price_category
         sheet.append_row([
             order.product_name,
             order.supplier,
@@ -138,6 +151,7 @@ def add_order(order: OrderRequest):
             order.purchase_date,
             order.staff_in_charge,
             order.approver,
+            price_category,
             latest_price_change
         ])
     except Exception as e:
@@ -152,6 +166,7 @@ def add_order(order: OrderRequest):
         purchase_date=order.purchase_date,
         staff_in_charge=order.staff_in_charge,
         approver=order.approver,
+        price_category=price_category,
         latest_price_change=latest_price_change
     )
 
@@ -159,8 +174,8 @@ def add_order(order: OrderRequest):
     "/orders",
     response_model=OrderHistoryResponse,
     summary="View purchase order history",
-    description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, latest_price_change information.",
-    response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- latest_price_change: Price difference from previous order (string, '-' if not applicable)",
+    description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+    response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
     operation_id="getOrderHistory"
 )
 def get_order_history():
