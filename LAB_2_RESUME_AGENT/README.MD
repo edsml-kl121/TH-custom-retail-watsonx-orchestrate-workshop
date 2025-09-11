@@ -1,6 +1,6 @@
 ### Instructions
 
-This lab shows how to create an agent and a simple flow that accepts a job position from the user and compares candidates' resumes to determine who aligns better with the job position. The output will be a score for each candidate, indicating how well their resume matches the job position.
+This lab shows how to create an agent and a simple flow that accepts a job position from the user and compares candidates' resumes  The output will be a score for candidate, indicating how well their resume matches the job position.
 
 Prerequisites
 - Access to the Studio UI where agents and flows are created.
@@ -8,9 +8,9 @@ Prerequisites
 ## Steps
 1. Create the agent<br/>
     1.1 Choose `create from scratch`<br>
-    1.2 Create a new agent named `resume_screening_agent` <br>
+    1.2 Create a new agent named `resume_scoring_agent` <br>
     1.3 Set the description to :<br>
-    `This agent using when need to compare candidate's resume align with job position the output will be scoring of each candidate resume` 
+    `This agent using when need to compare candidate's resume align with job position the output will be scoring of candidate resume` 
 ---
 
 2. Add a Tool that Using a New Flow <br>
@@ -22,7 +22,7 @@ Prerequisites
     2.3 Click the flow title (usually `Untitled`) in the top-left to open the flow settings.
     ![Open flow settings](images/image4.png)
 
-    2.4 Change the tool name to `resume_screening_tool` and set the description to `This tool using when user need to compare candidate's resume`.<br>
+    2.4 Change the tool name to `resume_scoring_tool` and set the description to `This tool using when user need to compare candidate's resume. when using this tool Don't ask any question follow the flow only`.<br>
     2.5 Click Save.
 
     ![Set tool name and description](images/image5.png)
@@ -39,7 +39,7 @@ Prerequisites
 ---
 
 2) Ask the user for the Job Position
-- Edit the User Activity node's display name to: `กรุณาใส่ตำแหน่งงาน`
+- Edit the User Activity node's display name to: `กรุณากรอกรายละเอียดของตำแหน่งงาน`
 
 ![Add Collect text from user](images/image8.png)
 
@@ -140,19 +140,19 @@ Output would be simliar like this.
 
 ---
 
-6) Now Add new flow to upload 1st Candidate's Resume 
+6) Now Add new flow to upload Candidate's Resume 
 
 ![select File upload](images/image27.png)
 
 6.1 change name to  **Resume uploader1**
 
-![change display name to Resume uploader1](images/image28.png)
+![change display name to Resume uploader](images/image28.png)
 
 ---
 
 7) Add a 1st Document Extractor  inside the User Activity<br>
   7.1 Drag a `Document Extractor` into the User Activity node.<br>
-  7.2 Rename it to `Resume extractor1`.<br>
+  7.2 Rename it to `Resume extractor`.<br>
   7.3 Click Edit Fields<br>
 
 ![Drag 1st Document extractor to userflow](images/image29.png)
@@ -169,88 +169,39 @@ Output would be simliar like this.
 
 8.2 Upload `jr-sales-resume.pdf`
 
-8.3 Click **Add Field**, name it as `name1` and configure the Field
+8.3 Click **Add Field**, name it as `name` and configure the Field
 
 ![Click add field](images/image32.png)
 
 ![addtional configure for name1](images/image33.png)
 
-Put Description as `Candidate name`
+Put Description as 
+```
+Extract the full name of the candidate. The name is usually located at the very top of the document and 
+is often displayed in a larger font. It should be a person's name, not a generic title like 'Resume' or 'Curriculum Vitae'. 
+Exclude any nearby contact information such as phone numbers, email addresses, or website links.
+```
 
 ![example of description](images/image34.png)
 
 And Click **Back Arrow** top left corner.
 
-8.4 Click **Add Field**, names it as `skills1` and configure the Field
+8.4 Click **Add Field**, names it as `skills` and configure the Field
 
-- For skills1 Using Description as
+- For skills Using Description as
 ```
-List all the skills mentioned, including both technical (hard) and interpersonal (soft) skills.
-Provide the extracted skills in a clear and concise format, focusing on relevance to the job position.
+Identify the skills section, which may be under headings like 'Skills', 'Key Skills', 'Technical Skills', 'Proficiencies', or 'Core Competencies'. Extract all individual skills mentioned into a list. The skills can be separated by commas, bullet points, or new lines. If skills are categorized (e.g., 'Programming Languages', 'Databases'), extract all of them into a single, flat list.
 ```
 
-8.5 Click **Add Field** names it as `experience1` and configure the Field
+8.5 Click **Add Field** names it as `experiences` and configure the Field
 
-- For experience1 Using Description as
+- For experiences Using Description as
 ```
-Include details on what the candidate has done in each position, specifying tasks, achievements, and responsibilities.
+Extract the entire work history section. This section may be titled 'Experience', 'Work Experience', 'Professional Experience', 'Employment History', 'Career History', or 'Relevant Experience'. Include all job entries listed, capturing the company name, job title, dates of employment, and the description of responsibilities for each role.
 ```
 
 8.6 Open document dropdown and Click **Mangage documents** and upload file from ```sameple/sr-sale-resume.pdf```
-![add more sample document](images/image36.png)
-
----
-### Most of this part we repeat step 6 - 8 (receive canidate's resume and extract field)
-
-9) Now Add new flow to upload 2nd Candidate's Resume 
-
-![select File upload](images/image37.png)
-
-9.1 change name to  **Resume uploader2**
-
----
-
-10) Add a 2nd Document Extractor  inside the User Activity<br>
-  10.1 Drag a `Document Extractor` into the User Activity node.<br>
-  10.2 Rename it to `Resume extractor2`.<br>
-  10.3 Click Edit Fields<br>
-
----
-11) Download and Upload Sample Resumes<br>
-  11.1 Download resumes from:
-    -  `sample/jr-sale-resume.pdf` 
-    -  `sample/sr-sale-resume.pdf`<br>
-
-11.2 Upload `jr-sales-resume.pdf`
-
-11.3 Click **Add Field**, name it as `name2` and configure the Field
-
-![Click add field](images/image54.png)
-
-![addtional configure for name2](images/image55.png)
-
-Put Description as `Candidate name`
-
-![example of description](images/image56.png)
-
-And Click **Back Arrow** top left corner.
-
-11.4 Click **Add Field**, names it as `skills2` and configure the Field
-
-- For skills2 Using Description as
-```
-List all the skills mentioned, including both technical (hard) and interpersonal (soft) skills.
-Provide the extracted skills in a clear and concise format, focusing on relevance to the job position.
-```
-
-11.5 Click **Add Field** names it as `experience2` and configure the Field
-
-- For experience2 Using Description as
-```
-Include details on what the candidate has done in each position, specifying tasks, achievements, and responsibilities.
-```
-
-11.6 Open document dropdown and Click **Mangage documents** and upload file from ```sameple/sr-sale-resume.pdf```
+![add more sample document](images/image35.png)
 ![add more sample document](images/image36.png)
 
 ---
@@ -260,73 +211,66 @@ Include details on what the candidate has done in each position, specifying task
 <br>
 ![checkpoint_pic2](images/image39.png)
 <br>
-![checkpoint_pic2](images/image40.png)
 
 ---
 
-12. Drag Generative prompt into user flow name it as `scoring agent` Click Edit prompt settings<br>
+9. Drag Generative prompt into user flow name it as `scoring agent` Click Edit prompt settings<br>
 
 ![Drag latest Generative prompt](images/image41.png)
 
-12.1  Click **Add input variable** and select variable type as **String**
+9.1  Click **Add input variable** and select variable type as **String**
 
 ![Click add input variable A](images/image42.png)
 
-12.2 Name the input variable. Repeat this process for all required variables:
+9.2 Name the input variable. Repeat this process for all required variables:
 
-- `name1`  
+- `name`  
   ![example input variable](images/image43.png)
-- `skills1`
-- `experience1`
-- `name2`
-- `skills2`
-- `experience2`
-- `expected_criteria_experience`
+- `skills`
+- `experiences`
+- `expected_criteria_experiences`
 - `expected_criteria_skills`
 
-12.3 For each variable:  
+9.3 For each variable:  
 - Click **Add input variable**  
 - Choose **String** as the type  
 - Enter the variable name  
 - Click **Save/Add**  
 
-12.4 After adding all variables, your Generative Prompt input variables should include:
+9.4 After adding all variables, your Generative Prompt input variables should include:
 
   ![all input variables](images/image44.png)
 
-12.5 Add this into System prompt exactly
+9.5 Add this into System prompt exactly
 ```
-You are a resume comparison agent. Compare two candidates' resumes against the provided expected criteria. For each candidate, score them on a scale of 0-100, where 100 means the resume fully matches the criteria and 0 means no match. The comparison should be based on the following:
+You are a resume comparison agent. Compare candidates' resume against the provided expected criteria. For each candidate, score them on a scale of 0-100, where 100 means the resume fully matches the criteria and 0 means no match. The comparison should be based on the following:
 1. **Skills**: Evaluate the alignment of the candidate's skills with the job's requirements.
-2. **Experience**: Assess the relevance and quality of the candidate's experience, including years of experience and the level of responsibility.
+2. **Experiences**: Assess the relevance and quality of the candidate's experiences, including years of experiences and the level of responsibility.
 3. **Achievements**: Review the candidate's notable achievements that demonstrate their ability to succeed in the role.
 4. **Other Key Factors**: Consider any other relevant factors such as certifications, leadership, and adaptability.
 
 For each candidate, provide a detailed breakdown of the score in these sections:
 - **Skills**: Explain how well the candidate’s skills align with the job’s requirements.
-- **Experience**: Detail the relevance of their experience to the role, including the number of years and level of seniority.
+- **Experiences**: Detail the relevance of their experiences to the role, including the number of years and level of seniority.
 - **Achievements**: Highlight significant accomplishments and their impact.
 - **Other Key Factors**: Mention additional qualities or experiences that may impact their suitability for the job.
 
-The output should include a **score** for each candidate along with **explanations** for each of the above categories, ensuring that both candidates are evaluated equally and fairly.
+The output should include a **score** for each candidate along with **explanations** for each of the above categories, ensuring that candidate are evaluated equally and fairly.
 
-**OUTPUT MUST BE IN THAI**
+**OUTPUT MUST BE IN THAI AND IN MARKDOWN FORMAT**
 ```
  
-12.6 Add user prompt as
+9.6 Add user prompt as
 ```
-Compare the 2 candidates below against the provided criteria. For each candidate, provide a score (0-100) and a brief justification for the following areas: Skills and Experience. Conclude with a final recommendation of which candidate is a better fit. 
-
-Candidate1: candidate name={name1}, skills1={skills1}, experience1={experience1}
-Candidate2: candidate name={name2}, skills2={skills2}, experience2={experience2}
-expected_criteria: {expected_criteria_experience}, {expected_criteria_skills}
+Candidate: candidate name={name}, skills={skills}, experiences={experiences}
+expected_criteria: {expected_criteria_experiences}, {expected_criteria_skills}
 ```
 
 The output should be as
 
   ![User prompt](images/image45.png)
 
-12.7 Change the Model to **llama-4-maverick-17b-128e-instruct-fp8**
+9.7 Change the Model to **llama-4-maverick-17b-128e-instruct-fp8**
 
   ![Change model Modelllama-4-maverick-17b-128e-instruct-fp8d](images/image46.png)
 
@@ -335,7 +279,7 @@ The output should be as
   ![lastest workflow](images/image47.png)
 
   ---
-13 Change the main Model to **llama-3-405b-instruct**
+13 Change the main Model to **llama-3-405b-instruct / gemini-2.5-flash**
 
   ![change main model](images/image48.png)
 
@@ -350,7 +294,7 @@ The output should be as
 
   ### Testing
   
-  - `ฉันอยากเปรียบเทียบ resume ของ candidateสองคน`
+  - `ฉันอยากเปรียบเทียบ resume ของ candidate`
   ![Input1](images/image50.png)
 
 - Answer with
@@ -360,8 +304,7 @@ excellent communication skills essential for building client relationships and c
 Experience spans from managing existing clients to acquiring new ones across diverse markets.
 ```
 
-- The Agent will allow you to upload first candidate resume  Upload ```jr-sales-resume.pdf```
-- The Agent will allow you to upload second candidate resume  Upload ```sr-sales-resume.pdf```
+- The Agent will allow you to upload candidate resume  Upload pdf from```test/test-sr-sales.pdf```
 
 ## Example
 
@@ -369,7 +312,6 @@ Experience spans from managing existing clients to acquiring new ones across div
 
   ![second example pic](images/image52.png)
 
-  ![third example pic](images/image57.png)
+  ![output](images/image57.png)
 
-  ![fourth example pic](images/image58.png)
 
