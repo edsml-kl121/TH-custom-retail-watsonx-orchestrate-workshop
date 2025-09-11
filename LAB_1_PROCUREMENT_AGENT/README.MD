@@ -1,79 +1,97 @@
+# Procurement Agent Setup
 
-# Procurement Agent Setup Guide
+This agent helps users manage retail procurement and analyze inventory. 
 
-This agent uses an API for managing retail procurement, allowing users to create and view purchase orders, track price changes, and handle approvals. Data is stored in Google Sheets. You also helps users query and analyze product data.
+Application:
+- creating/viewing purchase orders
+- tracking price changes
+- managing approvals with Google Sheets integration
+- converts natural language questions to SQL queries, executes them
 
----
+### Creating agent
 
-## 1. Create the Agent in Watsonx Orchestrate
+1. Go to Watsonx Orchestrate Agent Builder and create a new agent with the following information
 
-Go to the Watsonx Orchestrate Agent Builder and create a new agent named **"Procurement_agent"**.
+	**Agent name:**
 
-Add the following description:
-> This agent uses an API for managing retail procurement, allowing users to create and view purchase orders, track price changes, and handle approvals. Data is stored in Google Sheets.
+	```Procurement_agent```
 
-![Agent Builder](images/image.png)
+	**Agent Description:**
 
----
+	```markdown
+	You are an that agent helps users manage retail procurement and analyze market inventory. It supports creating/viewing purchase orders, tracking price changes, and managing approvals with Google Sheets integration. For market analysis, it converts natural language questions to SQL queries, executes them, and provides answers to help users make decisions 
+	```
 
-## 2. Add Tools
+	![Agent Builder](images/image.png)
 
-1. Add ORDER MANAGING tools using the OpenAPI spec file: `procurement_openapi.json`.
+	**Agent Behavior:**
 
-![Add Tool 1](images/image-1.png)
-![Add Tool 2](images/image-2.png)
-![Add Tool 3](images/image-3.png)
-![Add Tool 4](images/image-4.png)
+	```markdown
+	How To Use Tools
+	1. View purchase order - use this to view the history of order placed
+	2. create new purchase order - use this to place new order *when placing order always provide detail summary and yes no question to make sure the information is correct. before placing order. after place order, provide the summarize again in mark down tabel format
+	3. convert_text_to_sql - use this to convert questions about product data in the current market inventory into SQL queries and execute them against the furniture database. if the data are showable in markdown tabel format, do so.
+	4. send_email - Send email via Gmail with support for CC and BCC recipients
 
-2. Add PRODUCT INFORMATION tools by uploading the openapi json file that is provided called `openapi_text2sql.json` and add to tools
-
-![alt text](images/import.png)
-![alt text](images/convert.png)
-
-
-
-
----
-
-## 3. Example Test Queries
-
-Please choose `virtual-model/google/gemini-2.5-flash` and test the agent with following queries:
-
-**PLACING ORDER:**
+	Answer in the same language as user query.
+	Make sure you answer satisfy user question before asking to
+	continue your task.
+	When asking and answering questions please make sure you do
+	it in friendly and professional manner.
+	```
 
 
-- Yesterday I bought a laptop named ThinkPad for $1200.
+2. Add tools using the OpenAPI spec file: `procurement_openapi.json`, `openapi_text2sql.json`, `automation_openapi.json`
 
-<!-- ![Order Example 1](images/image-5.png)
-![Order Example 2](images/image-6.png) -->
+	![Openapi](images/image-2.png)
+	![Openapi](images/image-3.png)
+	![Openapi](images/image-4.png)
 
-- Today I bought the same laptop, ThinkPad, but from SupplierB for $1100.
+**Select only these tools from each OpenAPI spec:**
+
+- `procurement_openapi.json`: View purchase order history, Create a new purchase order
+- `openapi_text2sql.json`: convert_text_to_sql
+- `automation_openapi.json`: send_email
+
+
+
+## Example Test Queries (Thai)
+
+`procurement_openapi.json`
+
+1. ดึงข้อมูลออเดอร์ล่าสุดของแต่ละสินค้าในประวัติการสั่งซื้อ
+
+	<!-- ![Order History](images/ui_order_history.png) -->
+
+2. ขอดูข้อมูลของสินค้า 3 ชนิดนี้ในตลาด
 <!-- 
-![Order Example 3](images/image-7.png)
-![Order Example 4](images/image-8.png) -->
+	![Market Info 1](images/ui_market_info_1.png)
+	![Market Info 2](iamges/ui_market_info_2.pmg)
+	![Market Info 3](iamges/ui_market_info_3.pmg)
+	![Market Info 4](iamges/ui_market_info_4.pmg) -->
 
-Fill in any other required fields as prompted.
+3. เปรียบเทียบราคาสินค้าในประวัติการสั่งซื้อกับราคาสินค้าในตลาด เพื่อดูว่าอันไหนราคาต่ำกว่า
+	<!-- ![Compare Prices](images/ui_compare_prices.png) -->
 
-<!-- --- -->
+4. ผมพึ่งสั่งซื้อโต๊ะกาแฟไม้สน rustic ราคา 399.99 บาท ช่วยเพิ่มในประวัติให้หน่อย
+<!-- 
+	![Add Order 1](images/ui_add_order_1.png)
+	![Add Order 2](images/ui_add_order_2.png)
+	![Add Order 3](images/ui_add_order_3.png)
+	![Add Order 4](images/ui_add_order_4.png) -->
 
-<!-- ## 4. View Google Sheet Updates -->
+5. ส่งอีเมลสรุปรายการสินค้าที่สั่งนี้ไปหา {Your email} ด้วยหัวข้อ "New order"
+<!-- 
+	![Send Email](images/ui_send_email.png)
+	![alt text](images/ui_send_email_2.png) -->
+
 
 Access the Google Sheet to see real-time updates:
 [Order History Sheet](https://docs.google.com/spreadsheets/d/1bnyC1w1z2VX3ZJjz6iex4oHFPK7D2F3ws3SxgKLc_XI/edit?usp=sharing)
 
 ![Google Sheet Updated](images/image-9.png)
 
----
-
-**VIEW ORDER HISTORY**
-
-- Show me the history of all laptops purchased.
-
-<!-- ![Order History Example](images/image-10.png) -->
-
-
-**GETTING PRODUCT DETAILS**
-
+<!-- `openapi_text2sql.json`
 - สินค้าในแต่ละหมวดหมู่มีกี่ชิ้น
 - สินค้าที่ราคาสูงกว่า 1000 บาทมีอะไรบ้าง
 - สินค้าที่ต้องประกอบและไม่ต้องประกอบมีกี่ชิ้น
@@ -86,5 +104,16 @@ Access the Google Sheet to see real-time updates:
 - มูลค่าสต็อกรวมของสินค้าทั้งหมด
 
 
+`automation_openapi.json` -->
 
+## 4. Flow Overview
+
+1. Get the latest orders from each item in order history (to check prices for possible supplier substitute)
+2. Compare to current market prices and suggest changes if lower prices are found
+3. Create order in order history Google Sheet
+4. Confirm order and update order history
+5. View order info from order history in Google Sheet
+6. Send as a report (email)
+
+---
 
