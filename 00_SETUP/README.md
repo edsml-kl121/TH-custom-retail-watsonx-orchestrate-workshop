@@ -77,6 +77,28 @@ venv\Scripts\activate
 pip install -r requirement.txt
 ```
 
+### Incase you cant run your script Make sure the scripts executable (run this once):
+
+#### For Linux/macOS:
+```bash
+chmod +x import_all.sh
+```
+
+#### For Windows (PowerShell):
+Open PowerShell and run:
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+Unblock-File -Path .\import_all.ps1
+```
+
+Then run the script:
+```powershell
+./import_all.ps1
+```
+
+---
+
+
 ### Activating watsonx Orchestrate environment
 Assuming your are running watsonx Orchestrate on AWS Cloud (Saas),
 Please get your credentials from ![alt text](images/image_n.png)

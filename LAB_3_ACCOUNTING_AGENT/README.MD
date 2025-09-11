@@ -36,8 +36,6 @@ Then run the script:
 
 ---
 
-Enter "bash import_all.sh" command within the command line and run
-
 ## 3. Look up for your deployed agent within watsonx orchestrate agent builder
 
 Once you found your deployed agent, click on it to enter the agent builder page
