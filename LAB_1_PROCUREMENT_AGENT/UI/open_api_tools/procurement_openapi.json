@@ -9,11 +9,11 @@
     "/orders": {
       "get": {
         "summary": "View purchase order history",
-        "description": "Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, latest_price_change information.",
+        "description": "Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
         "operationId": "getOrderHistory",
         "responses": {
           "200": {
-            "description": "Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- latest_price_change: Price difference from previous order (string, '-' if not applicable)",
+            "description": "Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
             "content": {
               "application/json": {
                 "schema": {
@@ -40,7 +40,7 @@
         },
         "responses": {
           "200": {
-            "description": "Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- latest_price_change: Price difference from previous order (string, '-' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+            "description": "Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
             "content": {
               "application/json": {
                 "schema": {
@@ -108,6 +108,18 @@
             "type": "string",
             "title": "Approver"
           },
+          "price_category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price Category",
+            "default": "No Saving"
+          },
           "latest_price_change": {
             "anyOf": [
               {
@@ -118,7 +130,7 @@
               }
             ],
             "title": "Latest Price Change",
-            "default": "-"
+            "default": "0"
           }
         },
         "type": "object",
@@ -234,6 +246,19 @@
             "title": "Approver",
             "description": "Name of the approver. Only extract and present from the user's query if relevant. Make sure it is not assumed N/A or None."
           },
+          "price_category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price Category",
+            "description": "Price change category: 'Avoidance' (price increased), 'No Saving' (price unchanged), 'Reduction' (price decreased).",
+            "default": "No Saving"
+          },
           "latest_price_change": {
             "anyOf": [
               {
@@ -244,8 +269,8 @@
               }
             ],
             "title": "Latest Price Change",
-            "description": "Price difference from previous order (string, '-' if not applicable).",
-            "default": "-"
+            "description": "Price difference from previous order (string, '0' if not applicable).",
+            "default": "0"
           }
         },
         "type": "object",
