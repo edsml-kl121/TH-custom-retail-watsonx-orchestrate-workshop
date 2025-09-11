@@ -25,7 +25,7 @@ Add the following description:
 ![Add Tool 3](images/image-3.png)
 ![Add Tool 4](images/image-4.png)
 
-2. add new tools by uploading the openapi json file that is provided called `openapi_text2sql.json` and add to tools
+2. Add PRODUCT INFORMATION tools by uploading the openapi json file that is provided called `openapi_text2sql.json` and add to tools
 
 ![alt text](images/import.png)
 ![alt text](images/convert.png)
@@ -41,19 +41,19 @@ Add the following description:
 
 > Yesterday I bought a laptop named ThinkPad for $1200.
 
-![Order Example 1](images/image-5.png)
-![Order Example 2](images/image-6.png)
+<!-- ![Order Example 1](images/image-5.png)
+![Order Example 2](images/image-6.png) -->
 
 > Today I bought the same laptop, ThinkPad, but from SupplierB for $1100.
-
+<!-- 
 ![Order Example 3](images/image-7.png)
-![Order Example 4](images/image-8.png)
+![Order Example 4](images/image-8.png) -->
 
 Fill in any other required fields as prompted.
 
----
+<!-- --- -->
 
-## 4. View Google Sheet Updates
+<!-- ## 4. View Google Sheet Updates -->
 
 Access the Google Sheet to see real-time updates:
 [Order History Sheet](https://docs.google.com/spreadsheets/d/1bnyC1w1z2VX3ZJjz6iex4oHFPK7D2F3ws3SxgKLc_XI/edit?usp=sharing)
@@ -66,4 +66,4 @@ Access the Google Sheet to see real-time updates:
 
 > Show me the history of all laptops purchased.
 
-![Order History Example](images/image-10.png)
+<!-- ![Order History Example](images/image-10.png) -->
