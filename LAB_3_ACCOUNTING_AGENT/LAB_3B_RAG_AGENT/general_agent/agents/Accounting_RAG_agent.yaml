@@ -1,12 +1,12 @@
 spec_version: v1
 kind: native
-name: Accounting_knowledge_agent2
+name: Accounting_knowledge_agent
 description: >
     This agent handles general information related to Accounting.
 llm: watsonx/meta-llama/llama-3-405b-instruct
 style: react
 knowledge_base:
-  - accounting_knowledge_base2
+  - accounting_knowledge_base
 tools: []
 welcome_content:
   welcome_message: "สวัสดี! ฉันคือผู้ช่วย Accounting ของคุณ มีอะไรให้ช่วยไหม?"
@@ -22,7 +22,7 @@ starter_prompts:
           prompt: "ขั้นตอนหรือกระบวนการทางบัญชีของเซนทรัลมีอะไรบ้าง"
           state: "active"
         - id: "prompt_id_2"
-          title: "Operational Process"
+          title: "Accounting entry process"
           subtitle: ""
-          prompt: "ขั้นตอนหรือกระบวนการทางบัญชีของเซนทรัลมีอะไรบ้าง"
+          prompt: "การบันทึกบัญชีต้องทำอะไรบ้าง"
           state: "active"
