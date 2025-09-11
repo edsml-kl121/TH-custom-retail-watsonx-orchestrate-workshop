@@ -1,8 +1,8 @@
-### Installing VS code (Only for the coding lab)
+## 1. Installing VS code (Only for the coding lab)
 Here is the link to download VS code
 https://code.visualstudio.com/download
 
-### Installing Python 3.11
+## 2. Installing Python 3.11
 
 Before proceeding, ensure you have Python 3.11 installed on your system.
 
@@ -29,9 +29,29 @@ You should see output similar to: `Python 3.11.x`
 ```
 py -3.11 --version
 ```
----
 
-### Registering and provisioning watsonx Orchestrate Free Trial
+
+## 3. Installation of dependencies
+Install and create a virtual environment from `requirement.txt`. Ensure your python version is 3.11
+
+Run the following command
+
+#### Mac
+```
+python3.11 -m venv venv
+source venv/bin/activate
+pip install -r requirement.txt
+```
+
+#### Windows (Powershell)
+```
+py -3.11 -m venv venv
+venv\Scripts\activate
+pip install -r requirement.txt
+```
+
+
+## 4. Registering and provisioning watsonx Orchestrate Free Trial
 
 1. Please access the following link:
 https://www.ibm.com/products/watsonx-orchestrate and click on `Try it for free`
@@ -58,26 +78,8 @@ https://www.ibm.com/products/watsonx-orchestrate and click on `Try it for free`
 7. Your instance have been successfully provisioned once you landed here.
 ![alt text](images/image-8.png)
 
-### Installation of dependencies
-Install and create a virtual environment from `requirement.txt`. Ensure your python version is 3.11
 
-Run the following command
-
-#### Mac
-```
-python3.11 -m venv venv
-source venv/bin/activate
-pip install -r requirement.txt
-```
-
-#### Windows (Powershell)
-```
-py -3.11 -m venv venv
-venv\Scripts\activate
-pip install -r requirement.txt
-```
-
-### Incase you cant run your script Make sure the scripts executable (run this once):
+<!-- ### Incase you cant run your script Make sure the scripts executable (run this once):
 
 #### For Linux/macOS:
 ```bash
@@ -94,12 +96,11 @@ Unblock-File -Path .\import_all.ps1
 Then run the script:
 ```powershell
 ./import_all.ps1
-```
-
----
+``` -->
 
 
-### Activating watsonx Orchestrate environment
+
+## 5. Activating watsonx Orchestrate environment
 Assuming your are running watsonx Orchestrate on AWS Cloud (Saas),
 Please get your credentials from ![alt text](images/image_n.png)
 ```
@@ -114,3 +115,40 @@ Alternatively,
 
 
 https://developer.watson-orchestrate.ibm.com/environment/production_import
+
+
+
+## 6. Third Party Model Setup 
+
+To improve Thai language performance, watsonx Orchestrate supports external models via the `AI gateway`. See more: [Managing LLMs](https://developer.watson-orchestrate.ibm.com/llm/managing_llm). In this lab we will use `google/gemini-2.5-flash`
+
+STEPS:
+<!-- 1. Rename `env-template` to `.env` and add your `GOOGLE_API_KEY` which we will provide to you 
+
+(if you want to use your own API, you can also get it from [Google AI Studio](https://aistudio.google.com)). -->
+<!-- 2. If you cannot create an API key, enable Gemini API and create a project in Google Cloud Console.
+    - ![Enable Gemini API](images/enablegemini.png)
+    - ![Create Project](images/create-gcpproject.png)
+    - ![Get API Key](images/getapikey.png)
+    - ![Success](images/success.png)
+    - ![Unable to create key](images/unabletocreatekey.png)
+
+3. Complete the instructions in `00_SETUP`. -->
+
+1. Go to the WatsonxOrchestrate connections tab and add a connection named `gg_creds_UI`.
+    - ![Gateway 1](images/gateway_1.png)
+    - ![Gateway 2](images/gateway_2.png)
+3. For both draft and live environments, add a key-value pair: `api_key` = your GOOGLE_API_KEY key. 
+    - ![Gateway 3](images/gateway_3.png)
+    - ![Gateway 4](images/gateway_4.png)
+
+** we will provide the GOOGLE_API_KEY for you
+(if you want to use your own API, you can also get it from [Google AI Studio](https://aistudio.google.com))
+
+
+3. In your terminal, run:
+    ```bash
+    orchestrate models add --name google/gemini-2.5-flash --app-id gg_creds_UI
+    ```
+    - ![Added Gemini](images/added_gemini.png)
+

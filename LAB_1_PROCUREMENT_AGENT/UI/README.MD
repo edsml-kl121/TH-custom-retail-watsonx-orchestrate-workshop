@@ -1,34 +1,3 @@
-
-# Gemini Model Setup & Procurement Agent Guide
-
-## 1. Gemini Model Setup
-
-To improve Thai language performance, watsonx Orchestrate supports external models via the `AI gateway`. See more: [Managing LLMs](https://developer.watson-orchestrate.ibm.com/llm/managing_llm)
-
-### Steps to Add `google/gemini-2.5-flash`
-1. Rename `env-template` to `.env` and add your `GOOGLE_API_KEY` (get it from [Google AI Studio](https://aistudio.google.com)).
-2. If you cannot create an API key, enable Gemini API and create a project in Google Cloud Console.
-	- ![Enable Gemini API](images/enablegemini.png)
-	- ![Create Project](images/create-gcpproject.png)
-	- ![Get API Key](images/getapikey.png)
-	- ![Success](images/success.png)
-	- ![Unable to create key](images/unabletocreatekey.png)
-
-3. Complete the instructions in `00_SETUP`.
-
-### Add Model via UI
-1. Go to the connections tab and add a connection named `gg_creds_UI`.
-	- ![Gateway 1](images/gateway_1.png)
-	- ![Gateway 2](images/gateway_2.png)
-2. For both draft and live environments, add a key-value pair: `api_key` = your Gemini API key.
-	- ![Gateway 3](images/gateway_3.png)
-	- ![Gateway 4](images/gateway_4.png)
-3. In your terminal, run:
-	```bash
-	orchestrate models add --name google/gemini-2.5-flash --app-id gg_creds_UI
-	```
-	- ![Added Gemini](images/added_gemini.png)
-
 ## 2. Procurement Agent Setup
 
 This agent helps users manage retail procurement and analyze inventory. It supports creating/viewing purchase orders, tracking price changes, and managing approvals with Google Sheets integration. For market analysis, it converts natural language questions to SQL queries, executes them, and provides answers to help users make decisions.
