@@ -294,7 +294,7 @@ The output should be as
 
   ### Testing
   
-  - `ฉันอยากเปรียบเทียบ resume ของ candidate`
+  - `ฉันอยากเปรียบเทียบ resume ของ candidate` / `เช็คคะแนน resume`
   ![Input1](images/image50.png)
 
 - Answer with
@@ -313,6 +313,7 @@ Experience spans from managing existing clients to acquiring new ones across div
   ![second example pic](images/image52.png)
 
   ![output](images/image57.png)
+
 
 
 
