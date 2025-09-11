@@ -15,11 +15,14 @@ CD your terminal/command line into the LAB_3B_RAG_AGENT/general agent folder
 ## 2. Deploy the agent to watsonx orchestrate using command line
 
 
-### 2. Make sure the scripts executable (run this once):
+### Make sure the scripts executable (run this once):
 
 #### For Linux/macOS:
 ```bash
 chmod +x import_all.sh
+```
+or
+```bash import_all.sh
 ```
 
 #### For Windows (PowerShell):
