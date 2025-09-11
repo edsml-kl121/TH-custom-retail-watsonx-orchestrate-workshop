@@ -1,7 +1,7 @@
 
 # Procurement Agent Setup Guide
 
-This agent provides an API for managing retail procurement, allowing users to create and view purchase orders, track price changes, and handle approvals. Data is stored in Google Sheets.
+This agent uses an API for managing retail procurement, allowing users to create and view purchase orders, track price changes, and handle approvals. Data is stored in Google Sheets. You also helps users query and analyze product data.
 
 ---
 
@@ -18,12 +18,20 @@ Add the following description:
 
 ## 2. Add Tools
 
-Add tools using the OpenAPI spec file: `procurement_openapi.json`.
+1. Add ORDER MANAGING tools using the OpenAPI spec file: `procurement_openapi.json`.
 
 ![Add Tool 1](images/image-1.png)
 ![Add Tool 2](images/image-2.png)
 ![Add Tool 3](images/image-3.png)
 ![Add Tool 4](images/image-4.png)
+
+2. add new tools by uploading the openapi json file that is provided called `openapi_text2sql.json` and add to tools
+
+![alt text](images/import.png)
+![alt text](images/convert.png)
+
+
+
 
 ---
 
