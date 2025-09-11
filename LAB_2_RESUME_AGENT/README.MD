@@ -310,7 +310,7 @@ For each candidate, provide a detailed breakdown of the score in these sections:
 
 The output should include a **score** for each candidate along with **explanations** for each of the above categories, ensuring that both candidates are evaluated equally and fairly.
 
-**OUTPUT MUST BE IN THAI**
+**The output MUST be in THAI. AND MUST CONTAIN SCORING INFORMATION OF BOTH CANDIDATE**
 ```
  
 12.6 Add user prompt as
