@@ -6,11 +6,11 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/orders": {
+    "/orders_1": {
       "get": {
-        "summary": "View purchase order history",
+        "summary": "View purchase order history 1",
         "description": "Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
-        "operationId": "getOrderHistory",
+        "operationId": "getOrderHistory 1",
         "responses": {
           "200": {
             "description": "Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
@@ -25,9 +25,793 @@
         }
       },
       "post": {
-        "summary": "Create a new purchase order",
+        "summary": "Create a new purchase order 1",
         "description": "Submit details to add a new purchase order, including product, supplier, quantity, and staff information. \n        Calculates price change compared to previous order for the same product.",
-        "operationId": "addOrder",
+        "operationId": "addOrder 1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders_2": {
+      "get": {
+        "summary": "View purchase order history 2",
+        "description": "Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+        "operationId": "getOrderHistory 2",
+        "responses": {
+          "200": {
+            "description": "Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderHistoryResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new purchase order 2",
+        "description": "Submit details to add a new purchase order, including product, supplier, quantity, and staff information. \n        Calculates price change compared to previous order for the same product.",
+        "operationId": "addOrder 2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders_3": {
+      "get": {
+        "summary": "View purchase order history 3",
+        "description": "Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+        "operationId": "getOrderHistory 3",
+        "responses": {
+          "200": {
+            "description": "Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderHistoryResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new purchase order 3",
+        "description": "Submit details to add a new purchase order, including product, supplier, quantity, and staff information. \n        Calculates price change compared to previous order for the same product.",
+        "operationId": "addOrder 3",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders_4": {
+      "get": {
+        "summary": "View purchase order history 4",
+        "description": "Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+        "operationId": "getOrderHistory 4",
+        "responses": {
+          "200": {
+            "description": "Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderHistoryResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new purchase order 4",
+        "description": "Submit details to add a new purchase order, including product, supplier, quantity, and staff information. \n        Calculates price change compared to previous order for the same product.",
+        "operationId": "addOrder 4",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders_5": {
+      "get": {
+        "summary": "View purchase order history 5",
+        "description": "Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+        "operationId": "getOrderHistory 5",
+        "responses": {
+          "200": {
+            "description": "Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderHistoryResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new purchase order 5",
+        "description": "Submit details to add a new purchase order, including product, supplier, quantity, and staff information. \n        Calculates price change compared to previous order for the same product.",
+        "operationId": "addOrder 5",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders_6": {
+      "get": {
+        "summary": "View purchase order history 6",
+        "description": "Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+        "operationId": "getOrderHistory 6",
+        "responses": {
+          "200": {
+            "description": "Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderHistoryResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new purchase order 6",
+        "description": "Submit details to add a new purchase order, including product, supplier, quantity, and staff information. \n        Calculates price change compared to previous order for the same product.",
+        "operationId": "addOrder 6",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders_7": {
+      "get": {
+        "summary": "View purchase order history 7",
+        "description": "Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+        "operationId": "getOrderHistory 7",
+        "responses": {
+          "200": {
+            "description": "Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderHistoryResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new purchase order 7",
+        "description": "Submit details to add a new purchase order, including product, supplier, quantity, and staff information. \n        Calculates price change compared to previous order for the same product.",
+        "operationId": "addOrder 7",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders_8": {
+      "get": {
+        "summary": "View purchase order history 8",
+        "description": "Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+        "operationId": "getOrderHistory 8",
+        "responses": {
+          "200": {
+            "description": "Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderHistoryResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new purchase order 8",
+        "description": "Submit details to add a new purchase order, including product, supplier, quantity, and staff information. \n        Calculates price change compared to previous order for the same product.",
+        "operationId": "addOrder 8",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders_9": {
+      "get": {
+        "summary": "View purchase order history 9",
+        "description": "Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+        "operationId": "getOrderHistory 9",
+        "responses": {
+          "200": {
+            "description": "Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderHistoryResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new purchase order 9",
+        "description": "Submit details to add a new purchase order, including product, supplier, quantity, and staff information. \n        Calculates price change compared to previous order for the same product.",
+        "operationId": "addOrder 9",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders_10": {
+      "get": {
+        "summary": "View purchase order history 10",
+        "description": "Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+        "operationId": "getOrderHistory 10",
+        "responses": {
+          "200": {
+            "description": "Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderHistoryResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new purchase order 10",
+        "description": "Submit details to add a new purchase order, including product, supplier, quantity, and staff information. \n        Calculates price change compared to previous order for the same product.",
+        "operationId": "addOrder 10",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders_11": {
+      "get": {
+        "summary": "View purchase order history 11",
+        "description": "Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+        "operationId": "getOrderHistory 11",
+        "responses": {
+          "200": {
+            "description": "Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderHistoryResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new purchase order 11",
+        "description": "Submit details to add a new purchase order, including product, supplier, quantity, and staff information. \n        Calculates price change compared to previous order for the same product.",
+        "operationId": "addOrder 11",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders_12": {
+      "get": {
+        "summary": "View purchase order history 12",
+        "description": "Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+        "operationId": "getOrderHistory 12",
+        "responses": {
+          "200": {
+            "description": "Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderHistoryResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new purchase order 12",
+        "description": "Submit details to add a new purchase order, including product, supplier, quantity, and staff information. \n        Calculates price change compared to previous order for the same product.",
+        "operationId": "addOrder 12",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders_13": {
+      "get": {
+        "summary": "View purchase order history 13",
+        "description": "Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+        "operationId": "getOrderHistory 13",
+        "responses": {
+          "200": {
+            "description": "Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderHistoryResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new purchase order 13",
+        "description": "Submit details to add a new purchase order, including product, supplier, quantity, and staff information. \n        Calculates price change compared to previous order for the same product.",
+        "operationId": "addOrder 13",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders_14": {
+      "get": {
+        "summary": "View purchase order history 14",
+        "description": "Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+        "operationId": "getOrderHistory 14",
+        "responses": {
+          "200": {
+            "description": "Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderHistoryResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new purchase order 14",
+        "description": "Submit details to add a new purchase order, including product, supplier, quantity, and staff information. \n        Calculates price change compared to previous order for the same product.",
+        "operationId": "addOrder 14",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders_15": {
+      "get": {
+        "summary": "View purchase order history 15",
+        "description": "Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+        "operationId": "getOrderHistory 15",
+        "responses": {
+          "200": {
+            "description": "Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderHistoryResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new purchase order 15",
+        "description": "Submit details to add a new purchase order, including product, supplier, quantity, and staff information. \n        Calculates price change compared to previous order for the same product.",
+        "operationId": "addOrder 15",
         "requestBody": {
           "content": {
             "application/json": {

@@ -108,7 +108,7 @@ class ErrorResponse(BaseModel):
         Calculates price change compared to previous order for the same product.
         """,
     response_description="Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
-    operation_id="addOrder"
+    operation_id="addOrder 1"
 )
 def add_order_1(order: OrderRequest):
     """
@@ -174,7 +174,7 @@ def add_order_1(order: OrderRequest):
     summary="View purchase order history 1",
     description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
     response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
-    operation_id="getOrderHistory"
+    operation_id="getOrderHistory 1"
 )
 def get_order_history_1():
     """
@@ -207,7 +207,7 @@ def get_order_history_1():
         Calculates price change compared to previous order for the same product.
         """,
     response_description="Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
-    operation_id="addOrder"
+    operation_id="addOrder 2"
 )
 def add_order_2(order: OrderRequest):
     """
@@ -273,7 +273,7 @@ def add_order_2(order: OrderRequest):
     summary="View purchase order history 2",
     description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
     response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
-    operation_id="getOrderHistory"
+    operation_id="getOrderHistory 2"
 )
 def get_order_history_2():
     """
@@ -306,7 +306,7 @@ def get_order_history_2():
         Calculates price change compared to previous order for the same product.
         """,
     response_description="Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
-    operation_id="addOrder"
+    operation_id="addOrder 3"
 )
 def add_order_3(order: OrderRequest):
     """
@@ -372,7 +372,7 @@ def add_order_3(order: OrderRequest):
     summary="View purchase order history 3",
     description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
     response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
-    operation_id="getOrderHistory"
+    operation_id="getOrderHistory 3"
 )
 def get_order_history_3():
     """
@@ -405,7 +405,7 @@ def get_order_history_3():
         Calculates price change compared to previous order for the same product.
         """,
     response_description="Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
-    operation_id="addOrder"
+    operation_id="addOrder 4"
 )
 def add_order_4(order: OrderRequest):
     """
@@ -471,7 +471,7 @@ def add_order_4(order: OrderRequest):
     summary="View purchase order history 4",
     description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
     response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
-    operation_id="getOrderHistory"
+    operation_id="getOrderHistory 4"
 )
 def get_order_history_4():
     """
@@ -504,7 +504,7 @@ def get_order_history_4():
         Calculates price change compared to previous order for the same product.
         """,
     response_description="Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
-    operation_id="addOrder"
+    operation_id="addOrder 5"
 )
 def add_order_5(order: OrderRequest):
     """
@@ -570,7 +570,7 @@ def add_order_5(order: OrderRequest):
     summary="View purchase order history 5",
     description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
     response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
-    operation_id="getOrderHistory"
+    operation_id="getOrderHistory 5"
 )
 def get_order_history_5():
     """
@@ -595,13 +595,81 @@ def get_order_history_5():
         return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
     return OrderHistoryResponse(orders=orders)
 
+@app.post(
+    "/orders_6",
+    response_model=OrderResponse,
+    summary="Create a new purchase order 6",
+    description="""Submit details to add a new purchase order, including product, supplier, quantity, and staff information. 
+        Calculates price change compared to previous order for the same product.
+        """,
+    response_description="Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+    operation_id="addOrder 6"
+)
+def add_order_6(order: OrderRequest):
+    """
+    Add a new order to the order history.
+    Calculates price change compared to previous order for the same product.
+    User need to provide all fields in OrderRequest model including product_name, supplier, price, quantity, purchase_date (YYYY-MM-DD), staff_in_charge, and approver."
+    """
+    latest_price_change = "0"
+    price_category = "No Saving"  # Default value
+    try:
+        sheet = get_gsheet(6)
+        records = sheet.get_all_records()
+        previous_price = None
+        for row in records:
+            if row.get("product_name", "").strip().lower() == order.product_name.strip().lower():
+                try:
+                    previous_price = float(row.get("price", 0))
+                except Exception:
+                    previous_price = None
+        if previous_price is not None:
+            price_change = order.price - previous_price
+            latest_price_change = str(price_change)
+            # Set price_category based on price comparison
+            if order.price > previous_price:
+                price_category = "Avoidance"
+            elif order.price < previous_price:
+                price_category = "Reduction"
+            else:
+                price_category = "No Saving"
+        else:
+            price_category = "No Saving"
+        # Append new order with price_category
+        sheet.append_row([
+            order.product_name,
+            order.supplier,
+            order.price,
+            order.quantity,
+            order.purchase_date,
+            order.staff_in_charge,
+            order.approver,
+            price_category,
+            latest_price_change
+        ])
+    except Exception as e:
+        print(f"[ERROR] Failed to add order: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderResponse(
+        message="Order added successfully",
+        product_name=order.product_name,
+        supplier=order.supplier,
+        price=order.price,
+        quantity=order.quantity,
+        purchase_date=order.purchase_date,
+        staff_in_charge=order.staff_in_charge,
+        approver=order.approver,
+        price_category=price_category,
+        latest_price_change=latest_price_change
+    )
+
 @app.get(
     "/orders_6",
     response_model=OrderHistoryResponse,
     summary="View purchase order history 6",
     description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
     response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
-    operation_id="getOrderHistory_6"
+    operation_id="getOrderHistory 6"
 )
 def get_order_history_6():
     """
@@ -624,13 +692,81 @@ def get_order_history_6():
         return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
     return OrderHistoryResponse(orders=orders)
 
+@app.post(
+    "/orders_7",
+    response_model=OrderResponse,
+    summary="Create a new purchase order 7",
+    description="""Submit details to add a new purchase order, including product, supplier, quantity, and staff information. 
+        Calculates price change compared to previous order for the same product.
+        """,
+    response_description="Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+    operation_id="addOrder 7"
+)
+def add_order_7(order: OrderRequest):
+    """
+    Add a new order to the order history for Sheet7.
+    Calculates price change compared to previous order for the same product.
+    User need to provide all fields in OrderRequest model including product_name, supplier, price, quantity, purchase_date (YYYY-MM-DD), staff_in_charge, and approver.
+    """
+    latest_price_change = "0"
+    price_category = "No Saving"  # Default value
+    try:
+        sheet = get_gsheet(7)
+        records = sheet.get_all_records()
+        previous_price = None
+        for row in records:
+            if row.get("product_name", "").strip().lower() == order.product_name.strip().lower():
+                try:
+                    previous_price = float(row.get("price", 0))
+                except Exception:
+                    previous_price = None
+        if previous_price is not None:
+            price_change = order.price - previous_price
+            latest_price_change = str(price_change)
+            # Set price_category based on price comparison
+            if order.price > previous_price:
+                price_category = "Avoidance"
+            elif order.price < previous_price:
+                price_category = "Reduction"
+            else:
+                price_category = "No Saving"
+        else:
+            price_category = "No Saving"
+        # Append new order with price_category
+        sheet.append_row([
+            order.product_name,
+            order.supplier,
+            order.price,
+            order.quantity,
+            order.purchase_date,
+            order.staff_in_charge,
+            order.approver,
+            price_category,
+            latest_price_change
+        ])
+    except Exception as e:
+        print(f"[ERROR] Failed to add order: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderResponse(
+        message="Order added successfully",
+        product_name=order.product_name,
+        supplier=order.supplier,
+        price=order.price,
+        quantity=order.quantity,
+        purchase_date=order.purchase_date,
+        staff_in_charge=order.staff_in_charge,
+        approver=order.approver,
+        price_category=price_category,
+        latest_price_change=latest_price_change
+    )
+
 @app.get(
     "/orders_7",
     response_model=OrderHistoryResponse,
     summary="View purchase order history 7",
     description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
     response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
-    operation_id="getOrderHistory_7"
+    operation_id="getOrderHistory 7"
 )
 def get_order_history_7():
     """
@@ -653,13 +789,81 @@ def get_order_history_7():
         return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
     return OrderHistoryResponse(orders=orders)
 
+@app.post(
+    "/orders_8",
+    response_model=OrderResponse,
+    summary="Create a new purchase order 8",
+    description="""Submit details to add a new purchase order, including product, supplier, quantity, and staff information. 
+        Calculates price change compared to previous order for the same product.
+        """,
+    response_description="Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+    operation_id="addOrder 8"
+)
+def add_order_8(order: OrderRequest):
+    """
+    Add a new order to the order history for Sheet8.
+    Calculates price change compared to previous order for the same product.
+    User need to provide all fields in OrderRequest model including product_name, supplier, price, quantity, purchase_date (YYYY-MM-DD), staff_in_charge, and approver.
+    """
+    latest_price_change = "0"
+    price_category = "No Saving"  # Default value
+    try:
+        sheet = get_gsheet(8)
+        records = sheet.get_all_records()
+        previous_price = None
+        for row in records:
+            if row.get("product_name", "").strip().lower() == order.product_name.strip().lower():
+                try:
+                    previous_price = float(row.get("price", 0))
+                except Exception:
+                    previous_price = None
+        if previous_price is not None:
+            price_change = order.price - previous_price
+            latest_price_change = str(price_change)
+            # Set price_category based on price comparison
+            if order.price > previous_price:
+                price_category = "Avoidance"
+            elif order.price < previous_price:
+                price_category = "Reduction"
+            else:
+                price_category = "No Saving"
+        else:
+            price_category = "No Saving"
+        # Append new order with price_category
+        sheet.append_row([
+            order.product_name,
+            order.supplier,
+            order.price,
+            order.quantity,
+            order.purchase_date,
+            order.staff_in_charge,
+            order.approver,
+            price_category,
+            latest_price_change
+        ])
+    except Exception as e:
+        print(f"[ERROR] Failed to add order: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderResponse(
+        message="Order added successfully",
+        product_name=order.product_name,
+        supplier=order.supplier,
+        price=order.price,
+        quantity=order.quantity,
+        purchase_date=order.purchase_date,
+        staff_in_charge=order.staff_in_charge,
+        approver=order.approver,
+        price_category=price_category,
+        latest_price_change=latest_price_change
+    )
+
 @app.get(
     "/orders_8",
     response_model=OrderHistoryResponse,
     summary="View purchase order history 8",
     description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
     response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
-    operation_id="getOrderHistory_8"
+    operation_id="getOrderHistory 8"
 )
 def get_order_history_8():
     """
@@ -682,13 +886,81 @@ def get_order_history_8():
         return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
     return OrderHistoryResponse(orders=orders)
 
+@app.post(
+    "/orders_9",
+    response_model=OrderResponse,
+    summary="Create a new purchase order 9",
+    description="""Submit details to add a new purchase order, including product, supplier, quantity, and staff information. 
+        Calculates price change compared to previous order for the same product.
+        """,
+    response_description="Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+    operation_id="addOrder 9"
+)
+def add_order_9(order: OrderRequest):
+    """
+    Add a new order to the order history for Sheet9.
+    Calculates price change compared to previous order for the same product.
+    User need to provide all fields in OrderRequest model including product_name, supplier, price, quantity, purchase_date (YYYY-MM-DD), staff_in_charge, and approver.
+    """
+    latest_price_change = "0"
+    price_category = "No Saving"  # Default value
+    try:
+        sheet = get_gsheet(9)
+        records = sheet.get_all_records()
+        previous_price = None
+        for row in records:
+            if row.get("product_name", "").strip().lower() == order.product_name.strip().lower():
+                try:
+                    previous_price = float(row.get("price", 0))
+                except Exception:
+                    previous_price = None
+        if previous_price is not None:
+            price_change = order.price - previous_price
+            latest_price_change = str(price_change)
+            # Set price_category based on price comparison
+            if order.price > previous_price:
+                price_category = "Avoidance"
+            elif order.price < previous_price:
+                price_category = "Reduction"
+            else:
+                price_category = "No Saving"
+        else:
+            price_category = "No Saving"
+        # Append new order with price_category
+        sheet.append_row([
+            order.product_name,
+            order.supplier,
+            order.price,
+            order.quantity,
+            order.purchase_date,
+            order.staff_in_charge,
+            order.approver,
+            price_category,
+            latest_price_change
+        ])
+    except Exception as e:
+        print(f"[ERROR] Failed to add order: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderResponse(
+        message="Order added successfully",
+        product_name=order.product_name,
+        supplier=order.supplier,
+        price=order.price,
+        quantity=order.quantity,
+        purchase_date=order.purchase_date,
+        staff_in_charge=order.staff_in_charge,
+        approver=order.approver,
+        price_category=price_category,
+        latest_price_change=latest_price_change
+    )
+
 @app.get(
     "/orders_9",
     response_model=OrderHistoryResponse,
     summary="View purchase order history 9",
     description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
     response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
-    operation_id="getOrderHistory_9"
+    operation_id="getOrderHistory 9"
 )
 def get_order_history_9():
     """
@@ -711,13 +983,81 @@ def get_order_history_9():
         return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
     return OrderHistoryResponse(orders=orders)
 
+@app.post(
+    "/orders_10",
+    response_model=OrderResponse,
+    summary="Create a new purchase order 10",
+    description="""Submit details to add a new purchase order, including product, supplier, quantity, and staff information. 
+        Calculates price change compared to previous order for the same product.
+        """,
+    response_description="Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+    operation_id="addOrder 10"
+)
+def add_order_10(order: OrderRequest):
+    """
+    Add a new order to the order history for Sheet10.
+    Calculates price change compared to previous order for the same product.
+    User need to provide all fields in OrderRequest model including product_name, supplier, price, quantity, purchase_date (YYYY-MM-DD), staff_in_charge, and approver.
+    """
+    latest_price_change = "0"
+    price_category = "No Saving"  # Default value
+    try:
+        sheet = get_gsheet(10)
+        records = sheet.get_all_records()
+        previous_price = None
+        for row in records:
+            if row.get("product_name", "").strip().lower() == order.product_name.strip().lower():
+                try:
+                    previous_price = float(row.get("price", 0))
+                except Exception:
+                    previous_price = None
+        if previous_price is not None:
+            price_change = order.price - previous_price
+            latest_price_change = str(price_change)
+            # Set price_category based on price comparison
+            if order.price > previous_price:
+                price_category = "Avoidance"
+            elif order.price < previous_price:
+                price_category = "Reduction"
+            else:
+                price_category = "No Saving"
+        else:
+            price_category = "No Saving"
+        # Append new order with price_category
+        sheet.append_row([
+            order.product_name,
+            order.supplier,
+            order.price,
+            order.quantity,
+            order.purchase_date,
+            order.staff_in_charge,
+            order.approver,
+            price_category,
+            latest_price_change
+        ])
+    except Exception as e:
+        print(f"[ERROR] Failed to add order: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderResponse(
+        message="Order added successfully",
+        product_name=order.product_name,
+        supplier=order.supplier,
+        price=order.price,
+        quantity=order.quantity,
+        purchase_date=order.purchase_date,
+        staff_in_charge=order.staff_in_charge,
+        approver=order.approver,
+        price_category=price_category,
+        latest_price_change=latest_price_change
+    )
+
 @app.get(
     "/orders_10",
     response_model=OrderHistoryResponse,
     summary="View purchase order history 10",
     description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
     response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
-    operation_id="getOrderHistory_10"
+    operation_id="getOrderHistory 10"
 )
 def get_order_history_10():
     """
@@ -740,13 +1080,81 @@ def get_order_history_10():
         return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
     return OrderHistoryResponse(orders=orders)
 
+@app.post(
+    "/orders_11",
+    response_model=OrderResponse,
+    summary="Create a new purchase order 11",
+    description="""Submit details to add a new purchase order, including product, supplier, quantity, and staff information. 
+        Calculates price change compared to previous order for the same product.
+        """,
+    response_description="Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+    operation_id="addOrder 11"
+)
+def add_order_11(order: OrderRequest):
+    """
+    Add a new order to the order history for Sheetx.
+    Calculates price change compared to previous order for the same product.
+    User need to provide all fields in OrderRequest model including product_name, supplier, price, quantity, purchase_date (YYYY-MM-DD), staff_in_charge, and approver.
+    """
+    latest_price_change = "0"
+    price_category = "No Saving"  # Default value
+    try:
+        sheet = get_gsheet(11)
+        records = sheet.get_all_records()
+        previous_price = None
+        for row in records:
+            if row.get("product_name", "").strip().lower() == order.product_name.strip().lower():
+                try:
+                    previous_price = float(row.get("price", 0))
+                except Exception:
+                    previous_price = None
+        if previous_price is not None:
+            price_change = order.price - previous_price
+            latest_price_change = str(price_change)
+            # Set price_category based on price comparison
+            if order.price > previous_price:
+                price_category = "Avoidance"
+            elif order.price < previous_price:
+                price_category = "Reduction"
+            else:
+                price_category = "No Saving"
+        else:
+            price_category = "No Saving"
+        # Append new order with price_category
+        sheet.append_row([
+            order.product_name,
+            order.supplier,
+            order.price,
+            order.quantity,
+            order.purchase_date,
+            order.staff_in_charge,
+            order.approver,
+            price_category,
+            latest_price_change
+        ])
+    except Exception as e:
+        print(f"[ERROR] Failed to add order: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderResponse(
+        message="Order added successfully",
+        product_name=order.product_name,
+        supplier=order.supplier,
+        price=order.price,
+        quantity=order.quantity,
+        purchase_date=order.purchase_date,
+        staff_in_charge=order.staff_in_charge,
+        approver=order.approver,
+        price_category=price_category,
+        latest_price_change=latest_price_change
+    )
+
 @app.get(
     "/orders_11",
     response_model=OrderHistoryResponse,
     summary="View purchase order history 11",
     description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
     response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
-    operation_id="getOrderHistory_11"
+    operation_id="getOrderHistory 11"
 )
 def get_order_history_11():
     """
@@ -769,13 +1177,81 @@ def get_order_history_11():
         return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
     return OrderHistoryResponse(orders=orders)
 
+@app.post(
+    "/orders_12",
+    response_model=OrderResponse,
+    summary="Create a new purchase order 12",
+    description="""Submit details to add a new purchase order, including product, supplier, quantity, and staff information. 
+        Calculates price change compared to previous order for the same product.
+        """,
+    response_description="Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+    operation_id="addOrder 12"
+)
+def add_order_12(order: OrderRequest):
+    """
+    Add a new order to the order history for Sheet12.
+    Calculates price change compared to previous order for the same product.
+    User need to provide all fields in OrderRequest model including product_name, supplier, price, quantity, purchase_date (YYYY-MM-DD), staff_in_charge, and approver.
+    """
+    latest_price_change = "0"
+    price_category = "No Saving"  # Default value
+    try:
+        sheet = get_gsheet(12)
+        records = sheet.get_all_records()
+        previous_price = None
+        for row in records:
+            if row.get("product_name", "").strip().lower() == order.product_name.strip().lower():
+                try:
+                    previous_price = float(row.get("price", 0))
+                except Exception:
+                    previous_price = None
+        if previous_price is not None:
+            price_change = order.price - previous_price
+            latest_price_change = str(price_change)
+            # Set price_category based on price comparison
+            if order.price > previous_price:
+                price_category = "Avoidance"
+            elif order.price < previous_price:
+                price_category = "Reduction"
+            else:
+                price_category = "No Saving"
+        else:
+            price_category = "No Saving"
+        # Append new order with price_category
+        sheet.append_row([
+            order.product_name,
+            order.supplier,
+            order.price,
+            order.quantity,
+            order.purchase_date,
+            order.staff_in_charge,
+            order.approver,
+            price_category,
+            latest_price_change
+        ])
+    except Exception as e:
+        print(f"[ERROR] Failed to add order: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderResponse(
+        message="Order added successfully",
+        product_name=order.product_name,
+        supplier=order.supplier,
+        price=order.price,
+        quantity=order.quantity,
+        purchase_date=order.purchase_date,
+        staff_in_charge=order.staff_in_charge,
+        approver=order.approver,
+        price_category=price_category,
+        latest_price_change=latest_price_change
+    )
+
 @app.get(
     "/orders_12",
     response_model=OrderHistoryResponse,
     summary="View purchase order history 12",
     description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
     response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
-    operation_id="getOrderHistory_12"
+    operation_id="getOrderHistory 12"
 )
 def get_order_history_12():
     """
@@ -798,13 +1274,81 @@ def get_order_history_12():
         return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
     return OrderHistoryResponse(orders=orders)
 
+@app.post(
+    "/orders_13",
+    response_model=OrderResponse,
+    summary="Create a new purchase order 13",
+    description="""Submit details to add a new purchase order, including product, supplier, quantity, and staff information. 
+        Calculates price change compared to previous order for the same product.
+        """,
+    response_description="Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+    operation_id="addOrder 13"
+)
+def add_order_13(order: OrderRequest):
+    """
+    Add a new order to the order history for Sheet13.
+    Calculates price change compared to previous order for the same product.
+    User need to provide all fields in OrderRequest model including product_name, supplier, price, quantity, purchase_date (YYYY-MM-DD), staff_in_charge, and approver.
+    """
+    latest_price_change = "0"
+    price_category = "No Saving"  # Default value
+    try:
+        sheet = get_gsheet(13)
+        records = sheet.get_all_records()
+        previous_price = None
+        for row in records:
+            if row.get("product_name", "").strip().lower() == order.product_name.strip().lower():
+                try:
+                    previous_price = float(row.get("price", 0))
+                except Exception:
+                    previous_price = None
+        if previous_price is not None:
+            price_change = order.price - previous_price
+            latest_price_change = str(price_change)
+            # Set price_category based on price comparison
+            if order.price > previous_price:
+                price_category = "Avoidance"
+            elif order.price < previous_price:
+                price_category = "Reduction"
+            else:
+                price_category = "No Saving"
+        else:
+            price_category = "No Saving"
+        # Append new order with price_category
+        sheet.append_row([
+            order.product_name,
+            order.supplier,
+            order.price,
+            order.quantity,
+            order.purchase_date,
+            order.staff_in_charge,
+            order.approver,
+            price_category,
+            latest_price_change
+        ])
+    except Exception as e:
+        print(f"[ERROR] Failed to add order: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderResponse(
+        message="Order added successfully",
+        product_name=order.product_name,
+        supplier=order.supplier,
+        price=order.price,
+        quantity=order.quantity,
+        purchase_date=order.purchase_date,
+        staff_in_charge=order.staff_in_charge,
+        approver=order.approver,
+        price_category=price_category,
+        latest_price_change=latest_price_change
+    )
+
 @app.get(
     "/orders_13",
     response_model=OrderHistoryResponse,
     summary="View purchase order history 13",
     description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
     response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
-    operation_id="getOrderHistory_13"
+    operation_id="getOrderHistory 13"
 )
 def get_order_history_13():
     """
@@ -827,13 +1371,81 @@ def get_order_history_13():
         return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
     return OrderHistoryResponse(orders=orders)
 
+@app.post(
+    "/orders_14",
+    response_model=OrderResponse,
+    summary="Create a new purchase order 14",
+    description="""Submit details to add a new purchase order, including product, supplier, quantity, and staff information. 
+        Calculates price change compared to previous order for the same product.
+        """,
+    response_description="Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+    operation_id="addOrder 14"
+)
+def add_order_14(order: OrderRequest):
+    """
+    Add a new order to the order history for Sheet14.
+    Calculates price change compared to previous order for the same product.
+    User need to provide all fields in OrderRequest model including product_name, supplier, price, quantity, purchase_date (YYYY-MM-DD), staff_in_charge, and approver.
+    """
+    latest_price_change = "0"
+    price_category = "No Saving"  # Default value
+    try:
+        sheet = get_gsheet(14)
+        records = sheet.get_all_records()
+        previous_price = None
+        for row in records:
+            if row.get("product_name", "").strip().lower() == order.product_name.strip().lower():
+                try:
+                    previous_price = float(row.get("price", 0))
+                except Exception:
+                    previous_price = None
+        if previous_price is not None:
+            price_change = order.price - previous_price
+            latest_price_change = str(price_change)
+            # Set price_category based on price comparison
+            if order.price > previous_price:
+                price_category = "Avoidance"
+            elif order.price < previous_price:
+                price_category = "Reduction"
+            else:
+                price_category = "No Saving"
+        else:
+            price_category = "No Saving"
+        # Append new order with price_category
+        sheet.append_row([
+            order.product_name,
+            order.supplier,
+            order.price,
+            order.quantity,
+            order.purchase_date,
+            order.staff_in_charge,
+            order.approver,
+            price_category,
+            latest_price_change
+        ])
+    except Exception as e:
+        print(f"[ERROR] Failed to add order: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderResponse(
+        message="Order added successfully",
+        product_name=order.product_name,
+        supplier=order.supplier,
+        price=order.price,
+        quantity=order.quantity,
+        purchase_date=order.purchase_date,
+        staff_in_charge=order.staff_in_charge,
+        approver=order.approver,
+        price_category=price_category,
+        latest_price_change=latest_price_change
+    )
+
 @app.get(
     "/orders_14",
     response_model=OrderHistoryResponse,
     summary="View purchase order history 14",
     description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
     response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
-    operation_id="getOrderHistory_14"
+    operation_id="getOrderHistory 14"
 )
 def get_order_history_14():
     """
@@ -856,13 +1468,81 @@ def get_order_history_14():
         return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
     return OrderHistoryResponse(orders=orders)
 
+@app.post(
+    "/orders_15",
+    response_model=OrderResponse,
+    summary="Create a new purchase order 15",
+    description="""Submit details to add a new purchase order, including product, supplier, quantity, and staff information. 
+        Calculates price change compared to previous order for the same product.
+        """,
+    response_description="Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+    operation_id="addOrder 15"
+)
+def add_order_15(order: OrderRequest):
+    """
+    Add a new order to the order history for Sheet15.
+    Calculates price change compared to previous order for the same product.
+    User need to provide all fields in OrderRequest model including product_name, supplier, price, quantity, purchase_date (YYYY-MM-DD), staff_in_charge, and approver.
+    """
+    latest_price_change = "0"
+    price_category = "No Saving"  # Default value
+    try:
+        sheet = get_gsheet(15)
+        records = sheet.get_all_records()
+        previous_price = None
+        for row in records:
+            if row.get("product_name", "").strip().lower() == order.product_name.strip().lower():
+                try:
+                    previous_price = float(row.get("price", 0))
+                except Exception:
+                    previous_price = None
+        if previous_price is not None:
+            price_change = order.price - previous_price
+            latest_price_change = str(price_change)
+            # Set price_category based on price comparison
+            if order.price > previous_price:
+                price_category = "Avoidance"
+            elif order.price < previous_price:
+                price_category = "Reduction"
+            else:
+                price_category = "No Saving"
+        else:
+            price_category = "No Saving"
+        # Append new order with price_category
+        sheet.append_row([
+            order.product_name,
+            order.supplier,
+            order.price,
+            order.quantity,
+            order.purchase_date,
+            order.staff_in_charge,
+            order.approver,
+            price_category,
+            latest_price_change
+        ])
+    except Exception as e:
+        print(f"[ERROR] Failed to add order: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderResponse(
+        message="Order added successfully",
+        product_name=order.product_name,
+        supplier=order.supplier,
+        price=order.price,
+        quantity=order.quantity,
+        purchase_date=order.purchase_date,
+        staff_in_charge=order.staff_in_charge,
+        approver=order.approver,
+        price_category=price_category,
+        latest_price_change=latest_price_change
+    )
+
 @app.get(
     "/orders_15",
     response_model=OrderHistoryResponse,
     summary="View purchase order history 15",
     description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
     response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
-    operation_id="getOrderHistory_15"
+    operation_id="getOrderHistory 15"
 )
 def get_order_history_15():
     """
