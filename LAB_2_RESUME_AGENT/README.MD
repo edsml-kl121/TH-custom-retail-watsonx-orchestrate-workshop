@@ -303,6 +303,10 @@ A Senior Sales professional with a strong background in both B2B and B2C sales, 
 excellent communication skills essential for building client relationships and closing high-level deals.
 Experience spans from managing existing clients to acquiring new ones across diverse markets.
 ```
+```
+ผู้เชี่ยวชาญด้านการขายระดับอาวุโส ที่มีประสบการณ์อย่างลึกซึ้งทั้งในงานขายแบบ B2B และ B2C พร้อมทักษะการสื่อสารที่ยอดเยี่ยม ซึ่งมีความสำคัญต่อการสร้างความสัมพันธ์กับลูกค้าและปิดการขายในระดับสูง
+มีประสบการณ์ทั้งด้านการดูแลลูกค้าเดิมและการขยายฐานลูกค้าใหม่ในหลากหลายตลาด
+```
 
 - The Agent will allow you to upload candidate resume  Upload pdf from```test/test-sr-sales.pdf```
 
@@ -313,6 +317,7 @@ Experience spans from managing existing clients to acquiring new ones across div
   ![second example pic](images/image52.png)
 
   ![output](images/image57.png)
+
 
 
 
