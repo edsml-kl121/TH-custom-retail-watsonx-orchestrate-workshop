@@ -362,3 +362,11 @@ Experience spans from managing existing clients to acquiring new ones across div
 
 - The Agent will allow you to upload first candidate resume  Upload ```jr-sales-resume.pdf```
 - The Agent will allow you to upload second candidate resume  Upload ```sr-sales-resume.pdf```
+
+## Example
+
+  ![first example pic](images/image51.png)
+
+  ![second example pic](images/image52.png)
+
+  ![third example pic](images/image53.png)
