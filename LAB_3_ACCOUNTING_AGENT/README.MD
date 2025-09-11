@@ -22,7 +22,8 @@ CD your terminal/command line into the LAB_3B_RAG_AGENT/general agent folder
 chmod +x import_all.sh
 ```
 or
-```bash import_all.sh
+```bash
+bash import_all.sh
 ```
 
 #### For Windows (PowerShell):
