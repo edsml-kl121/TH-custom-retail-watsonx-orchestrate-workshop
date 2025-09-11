@@ -1,4 +1,4 @@
-### Installing Python 3.11
+# 1. Installing Python 3.11
 
 Before proceeding, ensure you have Python 3.11 installed on your system.
 
@@ -26,8 +26,27 @@ You should see output similar to: `Python 3.11.x`
 py -3.11 --version
 ```
 ---
+# 2. Install dependencies
+Install and create a virtual environment from `requirement.txt`. Ensure your python version is 3.11
 
-### Registering and provisioning watsonx Orchestrate Free Trial
+Run the following command
+
+#### Mac
+```
+python3.11 -m venv venv
+source venv/bin/activate
+pip install -r requirement.txt
+```
+
+#### Windows (Powershell)
+```
+py -3.11 -m venv venv
+.venv\Scripts\activate
+pip install -r requirement.txt
+```
+---
+
+# 2. Registering and provisioning watsonx Orchestrate Free Trial
 
 1. Please access the following link:
 https://www.ibm.com/products/watsonx-orchestrate and click on `Try it for free`
@@ -54,26 +73,8 @@ https://www.ibm.com/products/watsonx-orchestrate and click on `Try it for free`
 7. Your instance have been successfully provisioned once you landed here.
 ![alt text](images/image-8.png)
 
-### Installation of dependencies
-Install and create a virtual environment from `requirement.txt`. Ensure your python version is 3.11
-
-Run the following command
-
-#### Mac
-```
-python3.11 -m venv venv
-source venv/bin/activate
-pip install -r requirement.txt
-```
-
-#### Windows (Powershell)
-```
-py -3.11 -m venv venv
-.venv\Scripts\activate
-pip install -r requirement.txt
-```
-
-### Activating watsonx Orchestrate environment
+---
+# 4. Activating watsonx Orchestrate environment
 Assuming your are running watsonx Orchestrate on AWS Cloud (Saas),
 Please get your credentials from ![alt text](images/image_n.png)
 ```

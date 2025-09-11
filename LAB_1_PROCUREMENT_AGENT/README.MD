@@ -1,90 +1,104 @@
 
-# Procurement Agent Setup Guide
+# Gemini Model Setup & Procurement Agent Guide
 
-This agent uses an API for managing retail procurement, allowing users to create and view purchase orders, track price changes, and handle approvals. Data is stored in Google Sheets. You also helps users query and analyze product data.
+## 1. Gemini Model Setup
+
+To improve Thai language performance, watsonx Orchestrate supports external models via the `AI gateway`. See more: [Managing LLMs](https://developer.watson-orchestrate.ibm.com/llm/managing_llm)
+
+### Steps to Add `google/gemini-2.5-flash`
+1. Rename `env-template` to `.env` and add your `GOOGLE_API_KEY` (get it from [Google AI Studio](https://aistudio.google.com)).
+2. If you cannot create an API key, enable Gemini API and create a project in Google Cloud Console.
+	- ![Enable Gemini API](images/enablegemini.png)
+	- ![Create Project](images/create-gcpproject.png)
+	- ![Get API Key](images/getapikey.png)
+	- ![Success](images/success.png)
+	- ![Unable to create key](images/unabletocreatekey.png)
+
+3. Complete the instructions in `00_SETUP`.
+
+### Add Model via UI
+1. Go to the connections tab and add a connection named `gg_creds_UI`.
+	- ![Gateway 1](images/gateway_1.png)
+	- ![Gateway 2](images/gateway_2.png)
+2. For both draft and live environments, add a key-value pair: `api_key` = your Gemini API key.
+	- ![Gateway 3](images/gateway_3.png)
+	- ![Gateway 4](images/gateway_4.png)
+3. In your terminal, run:
+	```bash
+	orchestrate models add --name google/gemini-2.5-flash --app-id gg_creds_UI
+	```
+	- ![Added Gemini](images/added_gemini.png)
+
+### Add Model via ADK (Optional)
+**Linux/macOS:**
+```bash
+chmod +x set_connections.sh add_models.sh
+./set_connections.sh
+./add_models.sh
+```
+**Windows (PowerShell):**
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+./set_connections.ps1
+./add_models.ps1
+Unblock-File -Path .\set_connections.ps1
+Unblock-File -Path .\add_models.ps1
+```
+You should see the model being added.
 
 ---
 
-## 1. Create the Agent in Watsonx Orchestrate
+## 2. Procurement Agent Setup
 
-Go to the Watsonx Orchestrate Agent Builder and create a new agent named **"Procurement_agent"**.
+This agent helps users manage retail procurement and analyze inventory. It supports creating/viewing purchase orders, tracking price changes, and managing approvals with Google Sheets integration. For market analysis, it converts natural language questions to SQL queries, executes them, and provides answers to help users make decisions.
 
-Add the following description:
-> This agent uses an API for managing retail procurement, allowing users to create and view purchase orders, track price changes, and handle approvals. Data is stored in Google Sheets.
+### Agent Creation
+Go to Watsonx Orchestrate Agent Builder and create a new agent named **"Procurement_agent"**.
+
+**Agent Description:**
+> You are an that agent helps users manage retail procurement and analyze market inventory. It supports creating/viewing purchase orders, tracking price changes, and managing approvals with Google Sheets integration. For market analysis, it converts natural language questions to SQL queries, executes them, and provides answers to help users make decisions.
 
 ![Agent Builder](images/image.png)
 
----
-
-## 2. Add Tools
-
-1. Add ORDER MANAGING tools using the OpenAPI spec file: `procurement_openapi.json`.
-
+### Add Tools
+Add tools using the OpenAPI spec file: `procurement_openapi.json` and `openapi_text2sql.json`.
 ![Add Tool 1](images/image-1.png)
 ![Add Tool 2](images/image-2.png)
 ![Add Tool 3](images/image-3.png)
 ![Add Tool 4](images/image-4.png)
 
-2. Add PRODUCT INFORMATION tools by uploading the openapi json file that is provided called `openapi_text2sql.json` and add to tools
+### Agent Behavior Instructions
+"**How To Use Tools**
+1. View purchase order - use this to view the history of order placed
+2. create new purchase order - use this to place new order *when placing order always provide detail summary and yes no question to make sure the information is correct. before placing order. after place order, provide the summarize again in mark down tabel format
+3. convert_text_to_sql - use this to convert questions about product data in the current market inventory into SQL queries and execute them against the furniture database. if the data are showable in markdown tabel format, do so.
 
-![alt text](images/import.png)
-![alt text](images/convert.png)
+Answer in the same language as user query.
+Make sure you answer satisfy user question before asking to
+continue your task.
+When asking and answering questions please make sure you do
+it in friendly and professional manner."
+---
 
+## 3. Example Test Queries (Thai)
 
-
+1. ดึงข้อมูลออเดอร์ล่าสุดของแต่ละสินค้าในประวัติการสั่งซื้อให้หน่อย
+2. เปรียบเทียบราคากับราคาตลาดปัจจุบัน และขอคำแนะนำหากพบราคาที่ต่ำกว่า
+3. สร้างออเดอร์ใหม่ใน ประวัติการสั่งซื้อ
+4. ยืนยันออเดอร์และอัปเดตประวัติการสั่งซื้อ
+5. ดูข้อมูลออเดอร์จากประวัติการสั่งซื้อใน Google Sheet
+6. ส่งรายงานออเดอร์ทางอีเมล
 
 ---
 
-## 3. Example Test Queries
+## 4. Flow Overview
 
-Please choose `virtual-model/google/gemini-2.5-flash` and test the agent with following queries:
-
-**PLACING ORDER:**
-
-
-- Yesterday I bought a laptop named ThinkPad for $1200.
-
-<!-- ![Order Example 1](images/image-5.png)
-![Order Example 2](images/image-6.png) -->
-
-- Today I bought the same laptop, ThinkPad, but from SupplierB for $1100.
-<!-- 
-![Order Example 3](images/image-7.png)
-![Order Example 4](images/image-8.png) -->
-
-Fill in any other required fields as prompted.
-
-<!-- --- -->
-
-<!-- ## 4. View Google Sheet Updates -->
-
-Access the Google Sheet to see real-time updates:
-[Order History Sheet](https://docs.google.com/spreadsheets/d/1bnyC1w1z2VX3ZJjz6iex4oHFPK7D2F3ws3SxgKLc_XI/edit?usp=sharing)
-
-![Google Sheet Updated](images/image-9.png)
+1. Get the latest orders from each item in order history (to check prices for possible supplier substitute)
+2. Compare to current market prices and suggest changes if lower prices are found
+3. Create order in order history Google Sheet
+4. Confirm order and update order history
+5. View order info from order history in Google Sheet
+6. Send as a report (email)
 
 ---
-
-**VIEW ORDER HISTORY**
-
-- Show me the history of all laptops purchased.
-
-<!-- ![Order History Example](images/image-10.png) -->
-
-
-**GETTING PRODUCT DETAILS**
-
-- สินค้าในแต่ละหมวดหมู่มีกี่ชิ้น
-- สินค้าที่ราคาสูงกว่า 1000 บาทมีอะไรบ้าง
-- สินค้าที่ต้องประกอบและไม่ต้องประกอบมีกี่ชิ้น
-- สินค้าในหมวดห้องนั่งเล่นทั้งหมด
-- วัสดุที่ใช้ทำเฟอร์นิเจอร์มีอะไรบ้างและใช้กี่ชิ้น
-- สินค้าที่มีสถานะสต็อกน้อยคืออะไร
-- ราคาเฉลี่ยของสินค้าในแต่ละหมวดหมู่
-- สินค้าที่มีการรับประกันมากกว่า 3 ปี
-- สินค้าที่น้ำหนักมากกว่า 100 ปอนด์
-- มูลค่าสต็อกรวมของสินค้าทั้งหมด
-
-
-
 
