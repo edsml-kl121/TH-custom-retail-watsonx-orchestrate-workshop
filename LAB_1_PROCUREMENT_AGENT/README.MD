@@ -37,14 +37,17 @@ Add the following description:
 
 ## 3. Example Test Queries
 
-**Order Creation:**
+Please choose `virtual-model/google/gemini-2.5-flash` and test the agent with following queries:
 
-> Yesterday I bought a laptop named ThinkPad for $1200.
+**PLACING ORDER:**
+
+
+- Yesterday I bought a laptop named ThinkPad for $1200.
 
 <!-- ![Order Example 1](images/image-5.png)
 ![Order Example 2](images/image-6.png) -->
 
-> Today I bought the same laptop, ThinkPad, but from SupplierB for $1100.
+- Today I bought the same laptop, ThinkPad, but from SupplierB for $1100.
 <!-- 
 ![Order Example 3](images/image-7.png)
 ![Order Example 4](images/image-8.png) -->
@@ -62,8 +65,26 @@ Access the Google Sheet to see real-time updates:
 
 ---
 
-## 5. View Order History
+**VIEW ORDER HISTORY**
 
-> Show me the history of all laptops purchased.
+- Show me the history of all laptops purchased.
 
 <!-- ![Order History Example](images/image-10.png) -->
+
+
+**GETTING PRODUCT DETAILS**
+
+- สินค้าในแต่ละหมวดหมู่มีกี่ชิ้น
+- สินค้าที่ราคาสูงกว่า 1000 บาทมีอะไรบ้าง
+- สินค้าที่ต้องประกอบและไม่ต้องประกอบมีกี่ชิ้น
+- สินค้าในหมวดห้องนั่งเล่นทั้งหมด
+- วัสดุที่ใช้ทำเฟอร์นิเจอร์มีอะไรบ้างและใช้กี่ชิ้น
+- สินค้าที่มีสถานะสต็อกน้อยคืออะไร
+- ราคาเฉลี่ยของสินค้าในแต่ละหมวดหมู่
+- สินค้าที่มีการรับประกันมากกว่า 3 ปี
+- สินค้าที่น้ำหนักมากกว่า 100 ปอนด์
+- มูลค่าสต็อกรวมของสินค้าทั้งหมด
+
+
+
+
