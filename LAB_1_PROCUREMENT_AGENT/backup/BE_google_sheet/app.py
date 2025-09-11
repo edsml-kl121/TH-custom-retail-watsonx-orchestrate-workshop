@@ -42,10 +42,8 @@ app.openapi = custom_openapi
 
 # Google Sheets setup
 SHEET_ID = "1bnyC1w1z2VX3ZJjz6iex4oHFPK7D2F3ws3SxgKLc_XI"  # Replace with your actual spreadsheet ID
-# The worksheet/tab name is 'Sheet1', not 'order_history'
-SHEET_NAME = "Sheet1"
 
-def get_gsheet():
+def get_gsheet(sheet_number: int):
     try:
         creds_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
         if not creds_path or not os.path.exists(creds_path):
@@ -56,7 +54,7 @@ def get_gsheet():
         )
         client = gspread.authorize(creds)
         spreadsheet = client.open_by_key(SHEET_ID)
-        worksheet = spreadsheet.worksheet(SHEET_NAME)
+        worksheet = spreadsheet.worksheet(f"Sheet{sheet_number}")
         return worksheet
     except Exception as e:
         print(f"[ERROR] Google Sheets access failed: {e}")
@@ -103,16 +101,16 @@ class ErrorResponse(BaseModel):
     detail: str
 
 @app.post(
-    "/orders",
+    "/orders_1",
     response_model=OrderResponse,
-    summary="Create a new purchase order",
+    summary="Create a new purchase order 1",
     description="""Submit details to add a new purchase order, including product, supplier, quantity, and staff information. 
         Calculates price change compared to previous order for the same product.
         """,
     response_description="Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
     operation_id="addOrder"
 )
-def add_order(order: OrderRequest):
+def add_order_1(order: OrderRequest):
     """
     Add a new order to the order history.
     Calculates price change compared to previous order for the same product.
@@ -121,7 +119,7 @@ def add_order(order: OrderRequest):
     latest_price_change = "0"
     price_category = "No Saving"  # Default value
     try:
-        sheet = get_gsheet()
+        sheet = get_gsheet(1)
         records = sheet.get_all_records()
         previous_price = None
         for row in records:
@@ -171,21 +169,21 @@ def add_order(order: OrderRequest):
     )
 
 @app.get(
-    "/orders",
+    "/orders_1",
     response_model=OrderHistoryResponse,
-    summary="View purchase order history",
+    summary="View purchase order history 1",
     description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
     response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
     operation_id="getOrderHistory"
 )
-def get_order_history():
+def get_order_history_1():
     """
     Retrieve the full order history.
     Returns all recorded purchase orders.
     """
     orders = []
     try:
-        sheet = get_gsheet()
+        sheet = get_gsheet(1)
         records = sheet.get_all_records()
         for row in records:
             # Ensure latest_price_change is a string
@@ -196,6 +194,692 @@ def get_order_history():
             except Exception as item_error:
                 print(f"[ERROR] Failed to parse row: {row}, error: {item_error}")
         
+    except Exception as e:
+        print(f"[ERROR] Failed to fetch order history: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderHistoryResponse(orders=orders)
+
+@app.post(
+    "/orders_2",
+    response_model=OrderResponse,
+    summary="Create a new purchase order 2",
+    description="""Submit details to add a new purchase order, including product, supplier, quantity, and staff information. 
+        Calculates price change compared to previous order for the same product.
+        """,
+    response_description="Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+    operation_id="addOrder"
+)
+def add_order_2(order: OrderRequest):
+    """
+    Add a new order to the order history.
+    Calculates price change compared to previous order for the same product.
+    User need to provide all fields in OrderRequest model including product_name, supplier, price, quantity, purchase_date (YYYY-MM-DD), staff_in_charge, and approver."
+    """
+    latest_price_change = "0"
+    price_category = "No Saving"  # Default value
+    try:
+        sheet = get_gsheet(2)
+        records = sheet.get_all_records()
+        previous_price = None
+        for row in records:
+            if row.get("product_name", "").strip().lower() == order.product_name.strip().lower():
+                try:
+                    previous_price = float(row.get("price", 0))
+                except Exception:
+                    previous_price = None
+        if previous_price is not None:
+            price_change = order.price - previous_price
+            latest_price_change = str(price_change)
+            # Set price_category based on price comparison
+            if order.price > previous_price:
+                price_category = "Avoidance"
+            elif order.price < previous_price:
+                price_category = "Reduction"
+            else:
+                price_category = "No Saving"
+        else:
+            price_category = "No Saving"
+        # Append new order with price_category
+        sheet.append_row([
+            order.product_name,
+            order.supplier,
+            order.price,
+            order.quantity,
+            order.purchase_date,
+            order.staff_in_charge,
+            order.approver,
+            price_category,
+            latest_price_change
+        ])
+    except Exception as e:
+        print(f"[ERROR] Failed to add order: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderResponse(
+        message="Order added successfully",
+        product_name=order.product_name,
+        supplier=order.supplier,
+        price=order.price,
+        quantity=order.quantity,
+        purchase_date=order.purchase_date,
+        staff_in_charge=order.staff_in_charge,
+        approver=order.approver,
+        price_category=price_category,
+        latest_price_change=latest_price_change
+    )
+
+@app.get(
+    "/orders_2",
+    response_model=OrderHistoryResponse,
+    summary="View purchase order history 2",
+    description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+    response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+    operation_id="getOrderHistory"
+)
+def get_order_history_2():
+    """
+    Retrieve the full order history.
+    Returns all recorded purchase orders.
+    """
+    orders = []
+    try:
+        sheet = get_gsheet(2)
+        records = sheet.get_all_records()
+        for row in records:
+            # Ensure latest_price_change is a string
+            if "latest_price_change" in row:
+                row["latest_price_change"] = str(row["latest_price_change"])
+            try:
+                orders.append(OrderHistoryItem(**row))
+            except Exception as item_error:
+                print(f"[ERROR] Failed to parse row: {row}, error: {item_error}")
+        
+    except Exception as e:
+        print(f"[ERROR] Failed to fetch order history: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderHistoryResponse(orders=orders)
+
+@app.post(
+    "/orders_3",
+    response_model=OrderResponse,
+    summary="Create a new purchase order 3",
+    description="""Submit details to add a new purchase order, including product, supplier, quantity, and staff information. 
+        Calculates price change compared to previous order for the same product.
+        """,
+    response_description="Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+    operation_id="addOrder"
+)
+def add_order_3(order: OrderRequest):
+    """
+    Add a new order to the order history.
+    Calculates price change compared to previous order for the same product.
+    User need to provide all fields in OrderRequest model including product_name, supplier, price, quantity, purchase_date (YYYY-MM-DD), staff_in_charge, and approver."
+    """
+    latest_price_change = "0"
+    price_category = "No Saving"  # Default value
+    try:
+        sheet = get_gsheet(3)
+        records = sheet.get_all_records()
+        previous_price = None
+        for row in records:
+            if row.get("product_name", "").strip().lower() == order.product_name.strip().lower():
+                try:
+                    previous_price = float(row.get("price", 0))
+                except Exception:
+                    previous_price = None
+        if previous_price is not None:
+            price_change = order.price - previous_price
+            latest_price_change = str(price_change)
+            # Set price_category based on price comparison
+            if order.price > previous_price:
+                price_category = "Avoidance"
+            elif order.price < previous_price:
+                price_category = "Reduction"
+            else:
+                price_category = "No Saving"
+        else:
+            price_category = "No Saving"
+        # Append new order with price_category
+        sheet.append_row([
+            order.product_name,
+            order.supplier,
+            order.price,
+            order.quantity,
+            order.purchase_date,
+            order.staff_in_charge,
+            order.approver,
+            price_category,
+            latest_price_change
+        ])
+    except Exception as e:
+        print(f"[ERROR] Failed to add order: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderResponse(
+        message="Order added successfully",
+        product_name=order.product_name,
+        supplier=order.supplier,
+        price=order.price,
+        quantity=order.quantity,
+        purchase_date=order.purchase_date,
+        staff_in_charge=order.staff_in_charge,
+        approver=order.approver,
+        price_category=price_category,
+        latest_price_change=latest_price_change
+    )
+
+@app.get(
+    "/orders_3",
+    response_model=OrderHistoryResponse,
+    summary="View purchase order history 3",
+    description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+    response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+    operation_id="getOrderHistory"
+)
+def get_order_history_3():
+    """
+    Retrieve the full order history.
+    Returns all recorded purchase orders.
+    """
+    orders = []
+    try:
+        sheet = get_gsheet(3)
+        records = sheet.get_all_records()
+        for row in records:
+            # Ensure latest_price_change is a string
+            if "latest_price_change" in row:
+                row["latest_price_change"] = str(row["latest_price_change"])
+            try:
+                orders.append(OrderHistoryItem(**row))
+            except Exception as item_error:
+                print(f"[ERROR] Failed to parse row: {row}, error: {item_error}")
+        
+    except Exception as e:
+        print(f"[ERROR] Failed to fetch order history: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderHistoryResponse(orders=orders)
+
+@app.post(
+    "/orders_4",
+    response_model=OrderResponse,
+    summary="Create a new purchase order 4",
+    description="""Submit details to add a new purchase order, including product, supplier, quantity, and staff information. 
+        Calculates price change compared to previous order for the same product.
+        """,
+    response_description="Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+    operation_id="addOrder"
+)
+def add_order_4(order: OrderRequest):
+    """
+    Add a new order to the order history.
+    Calculates price change compared to previous order for the same product.
+    User need to provide all fields in OrderRequest model including product_name, supplier, price, quantity, purchase_date (YYYY-MM-DD), staff_in_charge, and approver."
+    """
+    latest_price_change = "0"
+    price_category = "No Saving"  # Default value
+    try:
+        sheet = get_gsheet(4)
+        records = sheet.get_all_records()
+        previous_price = None
+        for row in records:
+            if row.get("product_name", "").strip().lower() == order.product_name.strip().lower():
+                try:
+                    previous_price = float(row.get("price", 0))
+                except Exception:
+                    previous_price = None
+        if previous_price is not None:
+            price_change = order.price - previous_price
+            latest_price_change = str(price_change)
+            # Set price_category based on price comparison
+            if order.price > previous_price:
+                price_category = "Avoidance"
+            elif order.price < previous_price:
+                price_category = "Reduction"
+            else:
+                price_category = "No Saving"
+        else:
+            price_category = "No Saving"
+        # Append new order with price_category
+        sheet.append_row([
+            order.product_name,
+            order.supplier,
+            order.price,
+            order.quantity,
+            order.purchase_date,
+            order.staff_in_charge,
+            order.approver,
+            price_category,
+            latest_price_change
+        ])
+    except Exception as e:
+        print(f"[ERROR] Failed to add order: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderResponse(
+        message="Order added successfully",
+        product_name=order.product_name,
+        supplier=order.supplier,
+        price=order.price,
+        quantity=order.quantity,
+        purchase_date=order.purchase_date,
+        staff_in_charge=order.staff_in_charge,
+        approver=order.approver,
+        price_category=price_category,
+        latest_price_change=latest_price_change
+    )
+
+@app.get(
+    "/orders_4",
+    response_model=OrderHistoryResponse,
+    summary="View purchase order history 4",
+    description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+    response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+    operation_id="getOrderHistory"
+)
+def get_order_history_4():
+    """
+    Retrieve the full order history.
+    Returns all recorded purchase orders.
+    """
+    orders = []
+    try:
+        sheet = get_gsheet(4)
+        records = sheet.get_all_records()
+        for row in records:
+            # Ensure latest_price_change is a string
+            if "latest_price_change" in row:
+                row["latest_price_change"] = str(row["latest_price_change"])
+            try:
+                orders.append(OrderHistoryItem(**row))
+            except Exception as item_error:
+                print(f"[ERROR] Failed to parse row: {row}, error: {item_error}")
+        
+    except Exception as e:
+        print(f"[ERROR] Failed to fetch order history: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderHistoryResponse(orders=orders)
+
+@app.post(
+    "/orders_5",
+    response_model=OrderResponse,
+    summary="Create a new purchase order 5",
+    description="""Submit details to add a new purchase order, including product, supplier, quantity, and staff information. 
+        Calculates price change compared to previous order for the same product.
+        """,
+    response_description="Returns the created order with a status message or an error message if some field are stil missing.\nFields returned:\n- message: Status message\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable) Downstream logic should extract and present only the fields relevant to the user’s query.",
+    operation_id="addOrder"
+)
+def add_order_5(order: OrderRequest):
+    """
+    Add a new order to the order history.
+    Calculates price change compared to previous order for the same product.
+    User need to provide all fields in OrderRequest model including product_name, supplier, price, quantity, purchase_date (YYYY-MM-DD), staff_in_charge, and approver."
+    """
+    latest_price_change = "0"
+    price_category = "No Saving"  # Default value
+    try:
+        sheet = get_gsheet(5)
+        records = sheet.get_all_records()
+        previous_price = None
+        for row in records:
+            if row.get("product_name", "").strip().lower() == order.product_name.strip().lower():
+                try:
+                    previous_price = float(row.get("price", 0))
+                except Exception:
+                    previous_price = None
+        if previous_price is not None:
+            price_change = order.price - previous_price
+            latest_price_change = str(price_change)
+            # Set price_category based on price comparison
+            if order.price > previous_price:
+                price_category = "Avoidance"
+            elif order.price < previous_price:
+                price_category = "Reduction"
+            else:
+                price_category = "No Saving"
+        else:
+            price_category = "No Saving"
+        # Append new order with price_category
+        sheet.append_row([
+            order.product_name,
+            order.supplier,
+            order.price,
+            order.quantity,
+            order.purchase_date,
+            order.staff_in_charge,
+            order.approver,
+            price_category,
+            latest_price_change
+        ])
+    except Exception as e:
+        print(f"[ERROR] Failed to add order: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderResponse(
+        message="Order added successfully",
+        product_name=order.product_name,
+        supplier=order.supplier,
+        price=order.price,
+        quantity=order.quantity,
+        purchase_date=order.purchase_date,
+        staff_in_charge=order.staff_in_charge,
+        approver=order.approver,
+        price_category=price_category,
+        latest_price_change=latest_price_change
+    )
+
+@app.get(
+    "/orders_5",
+    response_model=OrderHistoryResponse,
+    summary="View purchase order history 5",
+    description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+    response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+    operation_id="getOrderHistory"
+)
+def get_order_history_5():
+    """
+    Retrieve the full order history.
+    Returns all recorded purchase orders.
+    """
+    orders = []
+    try:
+        sheet = get_gsheet(5)
+        records = sheet.get_all_records()
+        for row in records:
+            # Ensure latest_price_change is a string
+            if "latest_price_change" in row:
+                row["latest_price_change"] = str(row["latest_price_change"])
+            try:
+                orders.append(OrderHistoryItem(**row))
+            except Exception as item_error:
+                print(f"[ERROR] Failed to parse row: {row}, error: {item_error}")
+        
+    except Exception as e:
+        print(f"[ERROR] Failed to fetch order history: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderHistoryResponse(orders=orders)
+
+@app.get(
+    "/orders_6",
+    response_model=OrderHistoryResponse,
+    summary="View purchase order history 6",
+    description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+    response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+    operation_id="getOrderHistory_6"
+)
+def get_order_history_6():
+    """
+    Retrieve the full order history.
+    Returns all recorded purchase orders.
+    """
+    orders = []
+    try:
+        sheet = get_gsheet(6)
+        records = sheet.get_all_records()
+        for row in records:
+            if "latest_price_change" in row:
+                row["latest_price_change"] = str(row["latest_price_change"])
+            try:
+                orders.append(OrderHistoryItem(**row))
+            except Exception as item_error:
+                print(f"[ERROR] Failed to parse row: {row}, error: {item_error}")
+    except Exception as e:
+        print(f"[ERROR] Failed to fetch order history: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderHistoryResponse(orders=orders)
+
+@app.get(
+    "/orders_7",
+    response_model=OrderHistoryResponse,
+    summary="View purchase order history 7",
+    description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+    response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+    operation_id="getOrderHistory_7"
+)
+def get_order_history_7():
+    """
+    Retrieve the full order history.
+    Returns all recorded purchase orders.
+    """
+    orders = []
+    try:
+        sheet = get_gsheet(7)
+        records = sheet.get_all_records()
+        for row in records:
+            if "latest_price_change" in row:
+                row["latest_price_change"] = str(row["latest_price_change"])
+            try:
+                orders.append(OrderHistoryItem(**row))
+            except Exception as item_error:
+                print(f"[ERROR] Failed to parse row: {row}, error: {item_error}")
+    except Exception as e:
+        print(f"[ERROR] Failed to fetch order history: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderHistoryResponse(orders=orders)
+
+@app.get(
+    "/orders_8",
+    response_model=OrderHistoryResponse,
+    summary="View purchase order history 8",
+    description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+    response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+    operation_id="getOrderHistory_8"
+)
+def get_order_history_8():
+    """
+    Retrieve the full order history.
+    Returns all recorded purchase orders.
+    """
+    orders = []
+    try:
+        sheet = get_gsheet(8)
+        records = sheet.get_all_records()
+        for row in records:
+            if "latest_price_change" in row:
+                row["latest_price_change"] = str(row["latest_price_change"])
+            try:
+                orders.append(OrderHistoryItem(**row))
+            except Exception as item_error:
+                print(f"[ERROR] Failed to parse row: {row}, error: {item_error}")
+    except Exception as e:
+        print(f"[ERROR] Failed to fetch order history: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderHistoryResponse(orders=orders)
+
+@app.get(
+    "/orders_9",
+    response_model=OrderHistoryResponse,
+    summary="View purchase order history 9",
+    description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+    response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+    operation_id="getOrderHistory_9"
+)
+def get_order_history_9():
+    """
+    Retrieve the full order history.
+    Returns all recorded purchase orders.
+    """
+    orders = []
+    try:
+        sheet = get_gsheet(9)
+        records = sheet.get_all_records()
+        for row in records:
+            if "latest_price_change" in row:
+                row["latest_price_change"] = str(row["latest_price_change"])
+            try:
+                orders.append(OrderHistoryItem(**row))
+            except Exception as item_error:
+                print(f"[ERROR] Failed to parse row: {row}, error: {item_error}")
+    except Exception as e:
+        print(f"[ERROR] Failed to fetch order history: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderHistoryResponse(orders=orders)
+
+@app.get(
+    "/orders_10",
+    response_model=OrderHistoryResponse,
+    summary="View purchase order history 10",
+    description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+    response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+    operation_id="getOrderHistory_10"
+)
+def get_order_history_10():
+    """
+    Retrieve the full order history.
+    Returns all recorded purchase orders.
+    """
+    orders = []
+    try:
+        sheet = get_gsheet(10)
+        records = sheet.get_all_records()
+        for row in records:
+            if "latest_price_change" in row:
+                row["latest_price_change"] = str(row["latest_price_change"])
+            try:
+                orders.append(OrderHistoryItem(**row))
+            except Exception as item_error:
+                print(f"[ERROR] Failed to parse row: {row}, error: {item_error}")
+    except Exception as e:
+        print(f"[ERROR] Failed to fetch order history: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderHistoryResponse(orders=orders)
+
+@app.get(
+    "/orders_11",
+    response_model=OrderHistoryResponse,
+    summary="View purchase order history 11",
+    description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+    response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+    operation_id="getOrderHistory_11"
+)
+def get_order_history_11():
+    """
+    Retrieve the full order history.
+    Returns all recorded purchase orders.
+    """
+    orders = []
+    try:
+        sheet = get_gsheet(11)
+        records = sheet.get_all_records()
+        for row in records:
+            if "latest_price_change" in row:
+                row["latest_price_change"] = str(row["latest_price_change"])
+            try:
+                orders.append(OrderHistoryItem(**row))
+            except Exception as item_error:
+                print(f"[ERROR] Failed to parse row: {row}, error: {item_error}")
+    except Exception as e:
+        print(f"[ERROR] Failed to fetch order history: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderHistoryResponse(orders=orders)
+
+@app.get(
+    "/orders_12",
+    response_model=OrderHistoryResponse,
+    summary="View purchase order history 12",
+    description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+    response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+    operation_id="getOrderHistory_12"
+)
+def get_order_history_12():
+    """
+    Retrieve the full order history.
+    Returns all recorded purchase orders.
+    """
+    orders = []
+    try:
+        sheet = get_gsheet(12)
+        records = sheet.get_all_records()
+        for row in records:
+            if "latest_price_change" in row:
+                row["latest_price_change"] = str(row["latest_price_change"])
+            try:
+                orders.append(OrderHistoryItem(**row))
+            except Exception as item_error:
+                print(f"[ERROR] Failed to parse row: {row}, error: {item_error}")
+    except Exception as e:
+        print(f"[ERROR] Failed to fetch order history: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderHistoryResponse(orders=orders)
+
+@app.get(
+    "/orders_13",
+    response_model=OrderHistoryResponse,
+    summary="View purchase order history 13",
+    description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+    response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+    operation_id="getOrderHistory_13"
+)
+def get_order_history_13():
+    """
+    Retrieve the full order history.
+    Returns all recorded purchase orders.
+    """
+    orders = []
+    try:
+        sheet = get_gsheet(13)
+        records = sheet.get_all_records()
+        for row in records:
+            if "latest_price_change" in row:
+                row["latest_price_change"] = str(row["latest_price_change"])
+            try:
+                orders.append(OrderHistoryItem(**row))
+            except Exception as item_error:
+                print(f"[ERROR] Failed to parse row: {row}, error: {item_error}")
+    except Exception as e:
+        print(f"[ERROR] Failed to fetch order history: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderHistoryResponse(orders=orders)
+
+@app.get(
+    "/orders_14",
+    response_model=OrderHistoryResponse,
+    summary="View purchase order history 14",
+    description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+    response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+    operation_id="getOrderHistory_14"
+)
+def get_order_history_14():
+    """
+    Retrieve the full order history.
+    Returns all recorded purchase orders.
+    """
+    orders = []
+    try:
+        sheet = get_gsheet(14)
+        records = sheet.get_all_records()
+        for row in records:
+            if "latest_price_change" in row:
+                row["latest_price_change"] = str(row["latest_price_change"])
+            try:
+                orders.append(OrderHistoryItem(**row))
+            except Exception as item_error:
+                print(f"[ERROR] Failed to parse row: {row}, error: {item_error}")
+    except Exception as e:
+        print(f"[ERROR] Failed to fetch order history: {e}")
+        return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
+    return OrderHistoryResponse(orders=orders)
+
+@app.get(
+    "/orders_15",
+    response_model=OrderHistoryResponse,
+    summary="View purchase order history 15",
+    description="Retrieve the complete history of purchase orders, including product_name, supplier, price, quantity, purchase_date, staff_in_charge, approver, price_category, latest_price_change information.",
+    response_description="Returns a list of orders. Each order includes:\n- product_name: Name of the product\n- supplier: Supplier name\n- price: Price (float)\n- quantity: Quantity (int)\n- purchase_date: Date of purchase (YYYY-MM-DD)\n- staff_in_charge: Staff responsible\n- approver: Approver name\n- price_category: Price change category ('Avoidance', 'No Saving', 'Reduction')\n- latest_price_change: Price difference from previous order (string, '0' if not applicable)",
+    operation_id="getOrderHistory_15"
+)
+def get_order_history_15():
+    """
+    Retrieve the full order history.
+    Returns all recorded purchase orders.
+    """
+    orders = []
+    try:
+        sheet = get_gsheet(15)
+        records = sheet.get_all_records()
+        for row in records:
+            if "latest_price_change" in row:
+                row["latest_price_change"] = str(row["latest_price_change"])
+            try:
+                orders.append(OrderHistoryItem(**row))
+            except Exception as item_error:
+                print(f"[ERROR] Failed to parse row: {row}, error: {item_error}")
     except Exception as e:
         print(f"[ERROR] Failed to fetch order history: {e}")
         return JSONResponse(status_code=500, content={"detail": f"Error accessing Google Sheet: {str(e)}"})
