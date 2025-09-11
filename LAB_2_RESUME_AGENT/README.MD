@@ -54,7 +54,7 @@ Prerequisites
 
 ![Drag generative prompt to user activity](images/image10.png)
 
-- rename it to **Generatative prompt expected_criteria**
+- rename it to **Generative prompt expected_criteria**
 
 ![Change Generative prompt named as Generative prompt expected_criteria](images/Generative_prompt_expected_criteria.png)
 
@@ -313,5 +313,6 @@ Experience spans from managing existing clients to acquiring new ones across div
   ![second example pic](images/image52.png)
 
   ![output](images/image57.png)
+
 
 
