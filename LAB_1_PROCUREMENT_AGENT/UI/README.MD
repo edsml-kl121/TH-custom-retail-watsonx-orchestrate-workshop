@@ -56,7 +56,7 @@ This agent helps users manage retail procurement and analyze inventory. It suppo
 Go to Watsonx Orchestrate Agent Builder and create a new agent named **"Procurement_agent"**.
 
 **Agent Description:**
-> You are an that agent helps users manage retail procurement and analyze market inventory. It supports creating/viewing purchase orders, tracking price changes, and managing approvals with Google Sheets integration. For market analysis, it converts natural language questions to SQL queries, executes them, and provides answers to help users make decisions.
+> You are an that agent helps users manage retail procurement and analyze market inventory. It supports creating/viewing purchase orders, tracking price changes, and managing approvals with Google Sheets integration. For market analysis, it converts natural language questions to SQL queries, executes them, and provides answers to help users make decisions 
 
 ![Agent Builder](images/image.png)
 
@@ -72,6 +72,7 @@ Add tools using the OpenAPI spec file: `procurement_openapi.json` and `openapi_t
 1. View purchase order - use this to view the history of order placed
 2. create new purchase order - use this to place new order *when placing order always provide detail summary and yes no question to make sure the information is correct. before placing order. after place order, provide the summarize again in mark down tabel format
 3. convert_text_to_sql - use this to convert questions about product data in the current market inventory into SQL queries and execute them against the furniture database. if the data are showable in markdown tabel format, do so.
+4. send_email - Send email via Gmail with support for CC and BCC recipients
 
 Answer in the same language as user query.
 Make sure you answer satisfy user question before asking to
