@@ -1,3 +1,15 @@
+# Set Up
+
+This guide provides step-by-step instructions to set up your development environment and configure **watsonx Orchestrate** for the lab:
+
+1. Install VS Code 
+2. Install Python 3.11 
+3. Install dependencies
+4. Register and provision a watsonx Orchestrate free trial
+5. Activate your watsonx Orchestrate environment 
+6. Set up third-party models
+
+
 ## 1. Installing VS code (Only for the coding lab)
 Here is the link to download VS code
 https://code.visualstudio.com/download
@@ -31,7 +43,7 @@ py -3.11 --version
 ```
 
 
-## 3. Installation of dependencies
+## 3. Install dependencies
 Install and create a virtual environment from `requirement.txt`. Ensure your python version is 3.11
 
 Run the following command
@@ -73,6 +85,7 @@ https://www.ibm.com/products/watsonx-orchestrate and click on `Try it for free`
 ![alt text](images/image-5.png)
 
 6. You will be directed to: https://dl.watson-orchestrate.ibm.com/. Afterwards please, login with the IBMid and password you signed up with.
+
 ![alt text](images/image-7.png)
 
 7. Your instance have been successfully provisioned once you landed here.
@@ -118,7 +131,7 @@ https://developer.watson-orchestrate.ibm.com/environment/production_import
 
 
 
-## 6. Third Party Model Setup 
+## 6. Setup Third Party Model 
 
 To improve Thai language performance, watsonx Orchestrate supports external models via the `AI gateway`. See more: [Managing LLMs](https://developer.watson-orchestrate.ibm.com/llm/managing_llm). In this lab we will use `google/gemini-2.5-flash`
 
