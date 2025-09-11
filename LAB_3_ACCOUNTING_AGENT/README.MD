@@ -14,6 +14,28 @@ CD your terminal/command line into the LAB_3B_RAG_AGENT/general agent folder
 
 ## 2. Deploy the agent to watsonx orchestrate using command line
 
+
+### 2. Make sure the scripts executable (run this once):
+
+#### For Linux/macOS:
+```bash
+chmod +x import_all.sh
+```
+
+#### For Windows (PowerShell):
+Open PowerShell and run:
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+Unblock-File -Path .\import_all.ps1
+```
+
+Then run the script:
+```powershell
+./import_all.ps1
+```
+
+---
+
 Enter "bash import_all.sh" command within the command line and run
 
 ## 3. Look up for your deployed agent within watsonx orchestrate agent builder
