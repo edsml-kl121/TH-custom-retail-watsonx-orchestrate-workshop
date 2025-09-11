@@ -6,7 +6,7 @@ Prerequisites
 - Access to the Studio UI where agents and flows are created.
 
 ## Steps
-1 Create the agent<br/>
+1. Create the agent<br/>
     1.1 Choose `create from scratch`<br>
     1.2 Create a new agent named `resume_screening_agent` <br>
     1.3 Set the description to :<br>
