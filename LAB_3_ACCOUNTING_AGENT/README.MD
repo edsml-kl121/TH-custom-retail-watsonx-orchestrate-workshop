@@ -6,18 +6,11 @@ This lab we will use an ADK(Agent Development Kit) to create and configurate the
 ---
 
 
-## 0. Open up your code editor
+## 1. Open up your code editor
 Download the git repository as a .zip file
 Open it using a code editor
 Open and locate the repository for LAB_3B_RAG_AGENT
 CD your terminal/command line into the LAB_3B_RAG_AGENT/general agent folder
-
-## 1. Configurate the RAG Agent
-
-Locate and enter the accounting_knowledge_base.yaml file
-
-Change the file path of the pdf to your local path
-![file path change](/Users/pat/Desktop/WXO_Central/Workshop/TH-custom-retail-watsonx-orchestrate-workshop/LAB_3_ACCOUNTING_AGENT/images/image-for-RAG-1.png)
 
 ## 2. Deploy the agent to watsonx orchestrate using command line
 
