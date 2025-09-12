@@ -91,7 +91,7 @@ Access the Google Sheet to see real-time updates:
 
 ![Google Sheet Updated](images/image-9.png)
 
-<!-- `openapi_text2sql.json`
+`openapi_text2sql.json`
 - สินค้าในแต่ละหมวดหมู่มีกี่ชิ้น
 - สินค้าที่ราคาสูงกว่า 1000 บาทมีอะไรบ้าง
 - สินค้าที่ต้องประกอบและไม่ต้องประกอบมีกี่ชิ้น
@@ -104,7 +104,7 @@ Access the Google Sheet to see real-time updates:
 - มูลค่าสต็อกรวมของสินค้าทั้งหมด
 
 
-`automation_openapi.json` -->
+`automation_openapi.json`
 
 ## 4. Flow Overview
 
