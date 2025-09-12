@@ -47,4 +47,4 @@ Once you found your deployed agent, click on it to enter the agent builder page
 ## 4. Test your agent capability using the following questions
 
 การบันทึกบัญชีต้องทำอะไรบ้าง
-
+การจัดทำรายงานทางการเงินมีกี่ประเภท
