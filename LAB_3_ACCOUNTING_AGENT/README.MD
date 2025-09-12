@@ -51,7 +51,7 @@ Once you found your deployed agent, click on it to enter the agent builder page
 - `นโยบายบัญชีหลักมีอะไรบ้าง`
 - `วิธีการประเมินมูลค่าสินค้าคงเหลือที่ใช้มีอะไรบ้าง`
 - `การควบคุมค่าใช้จ่ายของบริษัทต้องทำอย่างไร`
-
+- `หลักการแบ่งแยกหน้าที่ (Segregation of Duties) คืออะไร`
 
 
 
