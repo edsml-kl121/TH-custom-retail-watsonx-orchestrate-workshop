@@ -1,3 +1,5 @@
+$env:PYTHONUTF8=1
+
 git lfs install
 
 gorchestrate env activate test-env
